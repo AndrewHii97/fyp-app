@@ -1,0 +1,39 @@
+<mat-toolbar class="mainToolbar" color="primary">
+    <mat-icon class="toolbarMenu" (click)="onToolbarMenuToggle()">
+        subject
+    </mat-icon>
+    ATGS 
+    <span class="toolbar-spacer"></span> 
+    <mat-icon mat-card-avatar ></mat-icon> 
+    <img class="profile" src="../../assets/andrew.jpg">
+    <span>Andrew</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>logout</span>
+        </button>
+    </mat-menu>
+</mat-toolbar> 
+
+
+<!-- sidenav & sidenav content need to be inside container -->
+<mat-sidenav-container fullscreen>
+    <mat-sidenav [(opened)]="isMenuOpen" mode="push">
+        <mat-selection-list [multiple]="false">
+            <mat-list-option><mat-icon matListIcon >space_dashboard</mat-icon>Dashboard</mat-list-option>
+            <mat-list-option><mat-icon matListIcon >warning</mat-icon>Alert</mat-list-option>
+            <mat-list-option><mat-icon matListIcon >face</mat-icon>Resident</mat-list-option>
+            <mat-list-option><mat-icon matListIcon >vpn_key</mat-icon>Key</mat-list-option>
+            <mat-list-option><mat-icon matListIcon >hail</mat-icon>Visitor</mat-list-option>
+            <mat-list-option><mat-icon matListIcon >apartment</mat-icon>HousingUnit</mat-list-option>
+            <mat-list-option><mat-icon matListIcon >badge</mat-icon>Security</mat-list-option>
+            <mat-list-option><mat-icon matListIcon >settings</mat-icon>Setting</mat-list-option>
+        </mat-selection-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

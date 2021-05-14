@@ -20,6 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule
   ],
   bootstrap: [AppComponent],
-  providers: [AuthGuardGuard]
+  providers: [AuthGuardGuard, MaterialModule]
 })
 export class AppModule { }

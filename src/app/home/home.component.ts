@@ -9,33 +9,29 @@ import { Router } from '@angular/router'
 })
 
 export class HomeComponent implements OnInit {
-  private navBar: Boolean = false;
+
+  public isMenuOpen :boolean = false;
+  public contentMargin :number = 240;
 
   constructor(private authService: AuthService, private router : Router) { }
 
   ngOnInit(): void {
   }
 
-  public logOut(): void{
+  onToolbarMenuToggle(){ 
+    console.log('On toolbar toggled', this.isMenuOpen);
+    this.isMenuOpen = !this.isMenuOpen;
+
+    if(!this.isMenuOpen){ 
+      this.contentMargin = 70;
+    } else { 
+      this.contentMargin = 240;
+    }
+
+  }
+
+  logout(){ 
     this.authService.logout();
-    console.log("log out successful");
     this.router.navigate(['/login']);
   }
-
-  public openNav(): void{ 
-    this.navBar = true;
-  }
-
-  public closeNav(): void{
-    this.navBar = false;
-  }
-
-  public checkNav(): any{
-    if( this.navBar === true ){ 
-      return { 
-        "width":"250px",
-      }
-    }
-  }
-
 }
