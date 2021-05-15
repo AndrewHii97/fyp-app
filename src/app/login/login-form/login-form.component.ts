@@ -36,7 +36,7 @@ export class LoginFormComponent implements OnInit {
       password:this.form.controls.password.value
     }).subscribe((response: any)=>{
       if(response.isValid){ 
-      this.router.navigate(['/home']);
+      this.router.navigate(['/home/dashboard']);
     }
     });
   }

@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
 
   logout(){ 
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   changeContent(selected: any):void { 
