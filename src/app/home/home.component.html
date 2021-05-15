@@ -11,7 +11,7 @@
         <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item >
+        <button routerLink="profile" (click)="sideMenu.deselectAll()" mat-menu-item >
             <mat-icon>account_circle</mat-icon>
             <span>Profile</span>
         </button>
@@ -28,8 +28,8 @@
     <mat-sidenav [(opened)]="isMenuOpen" mode="push">
         <mat-selection-list #sideMenu [multiple]="false" (click)="changeContent(sideMenu)">
             <mat-list-option routerLink="dashboard" [selected]="true" value="Dashboard"><mat-icon matListIcon >space_dashboard</mat-icon>Dashboard</mat-list-option>
-            <mat-list-option value="Alert"><mat-icon matListIcon >warning</mat-icon>Alert</mat-list-option>
-            <mat-list-option value="Resident"><mat-icon matListIcon >face</mat-icon>Resident</mat-list-option>
+            <mat-list-option routerLink="alert" value="Alert"><mat-icon matListIcon >warning</mat-icon>Alert</mat-list-option>
+            <mat-list-option routerLink="resident" value="Resident"><mat-icon matListIcon >face</mat-icon>Resident</mat-list-option>
             <mat-list-option value="Key"><mat-icon matListIcon >vpn_key</mat-icon>Key</mat-list-option>
             <mat-list-option value="Visitor"><mat-icon matListIcon >hail</mat-icon>Visitor</mat-list-option>
             <mat-list-option value="HousingUnit"><mat-icon matListIcon >apartment</mat-icon>HousingUnit</mat-list-option>
