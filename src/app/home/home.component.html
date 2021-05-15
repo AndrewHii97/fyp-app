@@ -27,7 +27,7 @@
 <mat-sidenav-container fullscreen>
     <mat-sidenav [(opened)]="isMenuOpen" mode="push">
         <mat-selection-list #sideMenu [multiple]="false" (click)="changeContent(sideMenu)">
-            <mat-list-option [selected]="true" value="Dashboard"><mat-icon matListIcon >space_dashboard</mat-icon>Dashboard</mat-list-option>
+            <mat-list-option routerLink="dashboard" [selected]="true" value="Dashboard"><mat-icon matListIcon >space_dashboard</mat-icon>Dashboard</mat-list-option>
             <mat-list-option value="Alert"><mat-icon matListIcon >warning</mat-icon>Alert</mat-list-option>
             <mat-list-option value="Resident"><mat-icon matListIcon >face</mat-icon>Resident</mat-list-option>
             <mat-list-option value="Key"><mat-icon matListIcon >vpn_key</mat-icon>Key</mat-list-option>
@@ -39,6 +39,6 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <!-- router outlet here -->
-        <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

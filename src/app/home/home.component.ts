@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,7 +20,6 @@ export class HomeComponent implements OnInit {
   }
 
   onToolbarMenuToggle(){ 
-    console.log('On toolbar toggled', this.isMenuOpen);
     this.isMenuOpen = !this.isMenuOpen;
 
     if(!this.isMenuOpen){ 
@@ -31,40 +31,12 @@ export class HomeComponent implements OnInit {
 
   logout(){ 
     this.authService.logout();
-    this.router.navigate(['/login']);
   }
 
   changeContent(selected: any):void { 
     let dir = selected.selectedOptions.selected[0]?.value;
     // add this.router to navigate to respective component
-    switch(dir) {
-      case "Dashboard":
-        console.log("route to dashboard");
-        break;
-      case "Alert":
-        console.log("route to alert");
-        break;
-      case "Resident":
-        console.log("route to resident");
-        break;
-      case "Key": 
-        console.log("route to key");
-        break;
-      case "Visitor":
-        console.log('route to visitor');
-        break;
-      case "HousingUnit":
-        console.log('route to housing unit');
-        break;
-      case "Security":
-        console.log('route to Security');
-        break;
-      case "Setting": 
-        console.log("route to Setting");
-        break;
-    }
     this.isMenuOpen = false;
-
   }
 
 

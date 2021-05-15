@@ -45,6 +45,7 @@ mat-sidenav, mat-sidenav-content{
 }
 
 mat-sidenav{
+    margin-right: 24px;
     background-color:coral;
     width:200px;
 
