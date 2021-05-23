@@ -1,0 +1,52 @@
+.outer-container{  
+    margin: 40px 20px;
+}
+
+.flex-container{
+    padding: 0px 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap:wrap;
+    min-width: 200px;
+}
+
+.grid-container{ 
+    background-color: greenyellow;
+    margin: 0 40px;
+    height: 100%;
+
+}
+
+.grid-tile{ 
+    background-color: royalblue;
+    overflow-y: auto;
+    flex: 1 1 auto;
+}
+
+.p-form{
+    margin: 20px 25px;
+    flex: 1 1 auto;
+}
+
+.form-component{ 
+    display: block;
+
+}
+
+.profile{
+    background-size:cover;
+    padding: 0px 40px;
+    max-width: 300px;
+    min-width: 299px;
+}
+
+.relative-box{
+    position: relative;
+}
+
+.profile-button{ 
+    position: absolute;
+    bottom: 0px;
+    right: 25px;
+}
+

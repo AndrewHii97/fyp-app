@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "..\\fyp_express"
+		},
+		{
+			"path": "..\\js-sandbox"
 		}
 	]
 }
