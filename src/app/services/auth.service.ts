@@ -31,8 +31,9 @@ export class AuthService {
       tap((data: any)=>{ 
         if(data.isValid){
           this.loggedIn = true;
+          localStorage.setItem('id', data.id);
           localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('token',login.username)
+          localStorage.setItem('token',login.username);
         }else{
           this.loggedIn = false;
           console.log("error password or username");
@@ -42,7 +43,8 @@ export class AuthService {
   }
 
   public logout() :void { 
-    localStorage.setItem('isLoggedIn','false')
+    localStorage.removeItem('id');
+    localStorage.setItem('isLoggedIn','false');
     localStorage.removeItem('token');
   }
 }
