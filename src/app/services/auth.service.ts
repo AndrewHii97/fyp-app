@@ -25,7 +25,7 @@ export class AuthService {
       .set("password",login.password);
     let option : any = {
         headers: new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded'),
-        responseType: "json" 
+        responseType: "json"
     } 
     return this.httpClient.post<any>(`${ADDRESS}/app/auth`, payload, option).pipe(
       tap((data: any)=>{ 

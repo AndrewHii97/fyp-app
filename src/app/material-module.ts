@@ -11,7 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     imports:[
@@ -26,7 +27,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        MatGridListModule
+        MatGridListModule,
+        MatSnackBarModule,
+        MatDialogModule
     ],
     exports:[ 
         MatToolbarModule,
@@ -40,7 +43,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        MatGridListModule
+        MatGridListModule,
+        MatSnackBarModule,
+        MatDialogModule
     ]
     
 }) 

@@ -51,7 +51,6 @@ export class LoginFormComponent implements OnInit {
   // make the border red in case of error 
   public inputStyle(){ 
     let cl; 
-    console.log(this.loginError)
     if(this.loginError){ 
       cl = { 
         'input': true,
@@ -68,7 +67,6 @@ export class LoginFormComponent implements OnInit {
 
   public showMessage(){ 
     let cl;
-    console.log(this.loginError)
     if(this.loginError){ 
       cl= { 
         'not-visible': false,

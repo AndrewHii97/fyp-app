@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material-module';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import { ProfileRoutingModule } from './profile-routing.module';
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent, UploadFileDialog } from './profile.component';
 
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    UploadFileDialog
   ],
   imports: [
     ReactiveFormsModule,
