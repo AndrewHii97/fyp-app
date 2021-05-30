@@ -3,7 +3,10 @@
     <div class="flex-container">
         <div>
             <div class="relative-box">
-                <img class="profile" src="../../assets/andrew.jpg">
+                <img *ngIf="userProfile.photourl" class="profile"
+                    [src]="userProfile.photourl">
+                <img *ngIf="!hasProfile()"  class="profile" 
+                    src="../../assets/profile-user.svg">
                 <button (click)="openDialog()" mat-fab color="primary"
                 class="profile-button"><mat-icon>file_upload</mat-icon></button>
             </div>

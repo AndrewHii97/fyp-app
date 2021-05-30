@@ -1,6 +1,10 @@
 export interface Profile{ 
-    name: String;
-    gender: String;
-    contact: String;
-    username: String;
+    name?: string;
+    age?: string;
+    gender?: string;
+    contact?: string;
+    username? : string;
+    photokey?: string;
+    photourl?: string;
+    officertype? : string;
 }

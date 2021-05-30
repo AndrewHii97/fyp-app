@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ProfileService } from '../services/profile.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { Profile } from '../interfaces/profile';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
 
   public userId : Number = parseInt(localStorage.getItem('id'))
   
-  public userProfile;
+  public userProfile : Profile = { } 
 
   public normalMode: Boolean = true;
 
@@ -31,6 +31,14 @@ export class ProfileComponent implements OnInit {
     contact: [''],
     username: ['']
   });
+
+  public hasProfile() :boolean{ 
+    if (this.userProfile.photourl){
+      return true;
+    }else{
+      return false;
+    }
+  }
   
   public passwordForm : FormGroup = this.fb.group({ 
     currPswd: [''],
@@ -95,6 +103,7 @@ export class ProfileComponent implements OnInit {
         'contact': profile.contact,
         'username' : profile.username,
         'photokey': profile.photokey,
+        'photourl': profile.photourl,
         'officertype' : profile.officertype,
       }
       this.profileForm.patchValue({ 
@@ -127,13 +136,11 @@ export class ProfileComponent implements OnInit {
     }).subscribe(
       res=> {
         this._snackBar.open("Profile Updated","Dismiss")
-        this.userProfile = { 
-          'name': this.profileForm.controls.name.value,
-          'age': this.profileForm.controls.age.value,
-          'gender': this.profileForm.controls.gender.value,
-          'contact' : this.profileForm.controls.contact.value,
-          'username': this.profileForm.controls.usernam.value,
-        }
+        this.userProfile.name = this.profileForm.controls.name.value;
+        this.userProfile.age = this.profileForm.controls.age.value;
+        this.userProfile.gender = this.profileForm.controls.gender.value;
+        this.userProfile.contact = this.profileForm.controls.contact.value;
+        this.userProfile.username = this.profileForm.controls.username.value;
       } ,
       err=> {
         this._snackBar.open("Update fail","Dismiss");
@@ -170,12 +177,17 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(UploadFileDialog, { 
       height: '400px',
       width: '400px',
-      data : { id: this.userId },
+      data : { id: this.userId , oldphotokey: this.userProfile.photokey},
       disableClose: true
     });
     
     dialogRef.afterClosed().subscribe(result =>{ 
       console.log(result);
+      this.profileService.getProfile(this.userId).subscribe((data)=>{ 
+        this.userProfile.photokey = data.photokey;
+        this.userProfile.photourl = data.photourl;
+      }) 
+
     })
   }
 
@@ -196,7 +208,8 @@ export class UploadFileDialog{
   constructor(
     public dialogRef : MatDialogRef<UploadFileDialog>,
     public profileService : ProfileService,
-    @Inject(MAT_DIALOG_DATA) public data : any) { }
+    @Inject(MAT_DIALOG_DATA) public data : any) {
+     }
   
   preview(files){ 
     if(files.length === 0){
@@ -223,13 +236,17 @@ export class UploadFileDialog{
 
 
   submitImage(): void { 
-    this.profileService.updatePhoto(this.data.id ,this.selectedFile, this.selectedFile.name)
+    console.log(this.data);
+    this.profileService.updatePhoto(this.data.id ,this.data.oldphotokey,this.selectedFile, this.selectedFile.name)
       .subscribe(
         (res)=>{ 
           this.dialogRef.close('success');
         },
         (err)=>{ 
           this.dialogRef.close('fail');
+        },
+        ()=>{
+          this.dialogRef.close('completed');
         }
       );
   }

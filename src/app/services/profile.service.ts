@@ -1,23 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ADDRESS } from '../config/config';
+import { Profile } from '../interfaces/profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
+  public userProfile : Profile = {} ;
 
   constructor(private httpClient : HttpClient) { 
 
   }
 
   public getProfile(userid : Number): Observable<any>{ 
-    return this.httpClient.get<any>(`${ADDRESS}/app/profile/${userid}`,
-      { 
-        responseType: 'json',
-      }
-    );
+    return this.httpClient.get<any>(`${ADDRESS}/app/profile/${userid}`, { responseType: 'json'})
+      .pipe(
+        tap((profile)=>{
+          this.userProfile.name = profile.name;
+          this.userProfile.age = profile.age;
+          this.userProfile.gender = profile.gender;
+          this.userProfile.contact = profile.contact;
+          this.userProfile.username = profile.username;
+          this.userProfile.photourl = profile.photourl;
+          this.userProfile.officertype = profile.officertype;
+          this.userProfile.photokey = profile.photokey;
+      }));
   }
 
   public updateProfile(userid : Number, profile): Observable<any> { 
@@ -49,9 +59,11 @@ export class ProfileService {
 
   }
 
-  public updatePhoto(userid, file, fileName){ 
+  public updatePhoto(userid, oldphotokey, file, fileName){ 
+    console.log(`oldphotokey=${oldphotokey}`);
     let formData = new FormData();
     formData.append('profilepic',file, fileName);
+    formData.append('photokey', oldphotokey);
     let headers = new HttpHeaders();
     let options : any = { 
       headers: headers,
