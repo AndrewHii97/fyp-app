@@ -1,0 +1,66 @@
+<div class="mat-elevation-z8 left-right-margin">
+    <button mat-raised-button class="spacing" (click)="onCreate()">
+        <mat-icon>add</mat-icon>
+        <mat-label>Create</mat-label>
+    </button>
+    <mat-form-field floatLabel="never">
+        <input matInput [(ngModel)]="searchKey" placeholder="Search"
+        autocomplete="off" (keyup)="applyFilter()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear"
+        *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-form-field class="spacing">
+        <mat-label>Search Categories</mat-label>
+        <mat-select [(ngModel)]="categorySelected"
+        (openedChange)="changeCategory()">
+            <mat-option>None</mat-option>
+            <mat-option value="livingunitid">Id</mat-option>
+            <mat-option value="ownername">Owner</mat-option>
+            <mat-option value="unitcode">UnitCode</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div class="mat-elevation-z8 left-right-margin">
+    <mat-table [dataSource]="houses" matSort matSortActive="livingunitid"
+    matSortDirection="asc"> 
+        <ng-container matColumnDef="livingunitid">
+            <!-- columndef have to be insde the displayd column -->
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.livingunitid}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ownername">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Owner</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.ownername}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="unitcode"> 
+             <mat-header-cell *matHeaderCellDef mat-sort-header>UnitCode</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.unitcode}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <mat-button class="pointer" mat-icon-button (click)="editHouse(element)"><mat-icon>launch</mat-icon></mat-button>
+                <mat-button class="pointer" mat-icon-button color="warn" (click)="deleteHouse(element)"><mat-icon>delete_outline</mat-icon></mat-button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="4">
+                Loading data....
+            </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="4">
+                No Data
+            </mat-footer-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumn;"></mat-row>
+        <mat-footer-row *matFooterRowDef="['loading']" 
+        [ngClass]="{'hide': houses != null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']"
+        [ngClass]="{'hide': !(houses != null && houses.data.length == 0)}"></mat-footer-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" pageSize="5" showFirstLastButtons></mat-paginator>
+</div>
