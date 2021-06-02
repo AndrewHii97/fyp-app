@@ -7,8 +7,10 @@ const routes: Routes = [
     { path: 'dashboard', loadChildren:() => import('../dashboard/dashboard.module').then(m => m.DashboardModule)},
     { path: 'profile', loadChildren: () => import('../profile/profile.module').then(m => m.ProfileModule) },
     { path: 'alert', loadChildren: () => import('../alert/alert.module').then(m => m.AlertModule) },
-    { path: 'resident', loadChildren: () => import('../resident/resident.module').then(m => m.ResidentModule) }
-  ]}
+    { path: 'resident', loadChildren: () => import('../resident/resident.module').then(m => m.ResidentModule) },
+    { path: 'house', loadChildren: ()=> import('../housing-unit/housing-unit.module').then( m =>m.HousingUnitModule)},
+    { path: 'key', loadChildren: () => import('../key/key.module').then(m => m.KeyModule) }
+  ]},
   ];
 
 @NgModule({
