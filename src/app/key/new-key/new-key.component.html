@@ -1,0 +1,16 @@
+<mat-progress-spinner *ngIf="loadingStatus"></mat-progress-spinner>
+<form *ngIf="!loadingStatus" [formGroup]="keyForm" (ngSubmit)="submitNewKey()">
+    <mat-form-field class="form-component spacing">
+        <mat-label>KeyCode</mat-label>
+        <input formControlName="keyvalue" matInput type="text" placeholder="KeyCode">
+    </mat-form-field>
+    <mat-form-field class="form-component spacing">
+        <mat-label>UnitCode</mat-label>
+        <mat-select formControlName="livingunit">
+            <mat-option value="" >---</mat-option>
+            <mat-option *ngFor="let house of houses" [value]="house">{{house.unitcode}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button class="spacing" mat-raised-button type="submit">Create</button>
+    <button class="spacing" mat-raised-button type="button" (click)="closeDialog()">Close</button>
+</form>

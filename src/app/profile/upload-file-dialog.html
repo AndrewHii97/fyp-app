@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Upload Profile Photo</h1>
+<div mat-dialog-content>
+        <img *ngIf="imageUrl" width="300px" height="auto" [src]="imageUrl">
+        <input #fileInput type="file" accept="image/*"
+        (change)="preview(fileInput.files)" style="display: none">
+        <button (click)="fileInput.click()" mat-flat-button>Choose Profile Pictures</button>
+        <button (click)="submitImage()" mat-flat-button>Upload</button>
+        <button (click)="onNoClick()" mat-flat-button>Cancel</button>
+</div>

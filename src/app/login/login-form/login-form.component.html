@@ -3,12 +3,13 @@
         <object ngClass="logo" data="../../../assets/eye.svg"></object>
         <h1 ngClass="header">Anti-Tailgating System</h1>
         <form [formGroup]='form' (ngSubmit)="onSubmit()">
-        <div ngClass="item">
-            <input ngClass="input" type="text" formControlName="username" placeholder="Username">
-        </div>
-        <div ngClass="item">
-            <input ngClass="input" type="password" formControlName="password" placeholder="Password">
-        </div>
+            <div ngClass="item">
+                <input [ngClass]="inputStyle()" type="text" formControlName="username" placeholder="Username">
+            </div>
+            <div ngClass="item">
+                <input [ngClass]="inputStyle()" type="password" formControlName="password" placeholder="Password">
+            </div>
+            <span [ngClass]="showMessage()">Username or password is incorrect</span>
             <button class="button" type="submit" [disabled]="!form.valid">Log In</button>
         </form>
     </div>

@@ -1,0 +1,88 @@
+
+<div class="outer-container">
+    <div class="flex-container">
+        <div>
+            <div class="relative-box">
+                <img *ngIf="userProfile.photourl" class="profile"
+                    [src]="userProfile.photourl">
+                <img *ngIf="!hasProfile()"  class="profile" 
+                    src="../../assets/profile-user.svg">
+                <button (click)="openDialog()" mat-fab color="primary"
+                class="profile-button"><mat-icon>file_upload</mat-icon></button>
+            </div>
+        </div>
+
+        <form class="p-form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+            <mat-form-field class="form-component" appearance="standard">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput 
+                formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field class="form-component" appearance="standard">
+                <mat-label>Age</mat-label>
+                <input type="text" matInput formControlName="age">
+            </mat-form-field>
+
+            <mat-form-field class="form-component" appearance="standard">
+                <mat-label>Gender</mat-label>
+                <mat-select [disabled]="normalMode" formControlName="gender">
+                    <mat-option value="male">Male</mat-option> 
+                    <mat-option value="female">Female</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-component" appearance="standard">
+                <mat-label>Contact</mat-label>
+                <input matInput formControlName="contact">
+            </mat-form-field>
+
+            <mat-form-field class="form-component" appearance="standard">
+                <mat-label>username</mat-label>
+                <input matInput formControlName="username"> 
+            </mat-form-field>
+
+            <button type="button" 
+            [ngStyle]="normalMode? {'display': 'inline-block' }: { 'display' :
+                'none' }" mat-flat-button (click)="enableEdit()">
+                <mat-icon>edit</mat-icon>Edit
+            </button>
+
+            <button type="button" 
+            [ngStyle]="normalMode ? {'display': 'none' }: {'display':
+                'inline-block'}"  type="submit" mat-flat-button>
+                <mat-icon>done</mat-icon>Submit
+            </button>
+
+            <button type="button"  (click)="onCancel()"
+            [ngStyle]="normalMode ? {'display': 'none' }: {'display': 'inline-block'}"
+                mat-flat-button>
+                <mat-icon>close</mat-icon>Cancel
+             </button>
+
+        </form>
+
+        <form class="p-form" [formGroup]="passwordForm" (ngSubmit)="submitPassword()">
+
+            <mat-form-field class="form-component" appearance="standard">
+                <mat-label>Current Password</mat-label>
+                <input type="password" matInput placeholder="Current Password" formControlName="currPswd">
+            </mat-form-field>
+
+            <mat-form-field class="form-component" appearance="standard">
+                <mat-label>New Password</mat-label>
+                <input type="password" matInput placeholder="New password"
+                formControlName="newPswd">
+            </mat-form-field>
+
+            <mat-form-field class="form-component" appaerance="standard">
+                <mat-label>Confirm Password</mat-label>
+                <input type="passowrd" matInput placeholder="Confirm password" formControlName="rePswd">
+            </mat-form-field>
+
+            <button mat-flat-button type="submit">Change Password</button> 
+
+        </form>
+    </div>
+</div>
