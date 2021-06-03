@@ -26,6 +26,9 @@ export class HomeComponent implements OnInit {
     this.profileService.getProfile(this.id).subscribe(
       (res)=>{
           this.imageUrl = this.profileService.userProfile.photourl;
+      },
+      (err)=>{
+        this.imageUrl = "";
       }
     )
   }
