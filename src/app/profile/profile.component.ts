@@ -218,11 +218,8 @@ export class UploadFileDialog{
     
     let mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null){
-      this.message = "Only Image are supported.";
       return;
     }
-
-
     let reader = new FileReader();
     this.imagePath = files;
     this.selectedFile = files[0];
