@@ -37,10 +37,21 @@
                     <mat-label>Password</mat-label>
                     <input formControlName="password" matInput type="password" placeholder="Password">
                 </mat-form-field>
-                <mat-select class="spacing" formControlName="unitcode" >
-                    <mat-option value="">------</mat-option>
-                    <mat-option *ngFor="let house of houses" [value]="house">{{house.unitcode}}</mat-option>
-                </mat-select>
+                <mat-form-field>
+                    <mat-label>Living Unit</mat-label>
+                    <mat-select  (selectionChange)="getHouseKey()" class="spacing"
+                    formControlName="unitcode">
+                        <mat-option value="">------</mat-option>
+                        <mat-option *ngFor="let house of houses" [value]="house">{{house.unitcode}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Key</mat-label>
+                    <mat-select class="spacing" formControlName=key>
+                        <mat-option value="">------</mat-option>
+                        <mat-option *ngFor="let key of keys" [value]="key">{{key.keyvalue}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <button class="spacing" mat-raised-button matStepperNext type="button">Next</button>
                 <button class="spacing" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
             </form>
@@ -48,14 +59,17 @@
         <mat-step [stepControl]="imageForm">
             <form [formGroup]="imageForm">
                 <ng-template matStepLabel>Upload Face Image for Recognition</ng-template>
-                <img *ngIf="imageUrl" width="300px" height="auto" [src]="imageUrl">
-                <input #fileInput type="file" accept="image/*"
-                (change)="preview(fileInput.files)" style="display: none">
-                <button (click)="fileInput.click()" mat-flat-button>Choose Profile Pictures</button>
-                <button class="spacing" mat-raised-button matStepperNext
-                type="button">Next</button>
-                <button class="spacing" mat-raised-button matStepperPrevious
-                type="button">Previous</button>
+
+                <img *ngIf="imageUrl && imageUrl !== '' " width="300px" height="auto" [src]="imageUrl">
+
+                <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none">
+
+                <button (click)="fileInput.click()" type="button" mat-flat-button>Choose Profile Pictures</button>
+
+                <button class="spacing" mat-raised-button matStepperNext type="button">Next</button>
+
+                <button class="spacing" mat-raised-button matStepperPrevious type="button">Previous</button>
+
                 <button class="spacing" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
             </form>
         </mat-step>

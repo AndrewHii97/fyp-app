@@ -3,8 +3,14 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialo
 import { ResidentService } from '../../services/resident.service';
 import { HousingUnitService } from '../../services/housing-unit.service'
 import { Resident } from '../../interfaces/resident';
+import { KeyService } from '../../services/key.service' 
 import { House } from '../../interfaces/house';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms'
+import { Key } from '../../interfaces/key';
+import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms'
+import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
+import { ReadVarExpr, ThisReceiver } from '@angular/compiler';
+import { fileURLToPath } from 'url';
+
 
 @Component({
   selector: 'app-new-resident',
@@ -15,14 +21,15 @@ export class NewResidentComponent implements OnInit {
   
   public loadingStatus : boolean = false;
   public houses : House[];
+  public keys;
+  public disableKeySelection: boolean = true;
   public imageUrl;
-  public imagePath;
-  public selectedFile;
 
   constructor(private fb: FormBuilder,
     private dialogRef: MatDialogRef<NewResidentComponent>,
     private houseService: HousingUnitService,
-    private residentService: ResidentService) { }
+    private residentService: ResidentService,
+    private keyService: KeyService ) { }
 
   public residentForm : FormGroup  = this.fb.group({
     name : [''],
@@ -32,11 +39,12 @@ export class NewResidentComponent implements OnInit {
     contact : [''],
     username : [''],
     password: [''],
-    unitcode : ['']
+    unitcode : [''],
+    key: [{value: '', disabled: this.disableKeySelection}, Validators.required]
   });
 
   public imageForm : FormGroup = this.fb.group({
-    image : ['']
+    image : [null]
   })
 
 
@@ -46,6 +54,31 @@ export class NewResidentComponent implements OnInit {
         this.houses = houses;
       }
     ) 
+  }
+
+  getHouseKey(): void { 
+    let livingunitid = this.residentForm.controls.unitcode.value.livingunitid;
+    if (livingunitid == null) { 
+      this.keys = [];
+      this.residentForm.patchValue({
+        key: '' 
+      })
+      this.disableKeySelection = true;
+      return;
+
+    }
+    this.keyService.getKeyQuery(livingunitid).subscribe(
+      (keys)=>{
+        if(keys != null){
+          this.keys = keys;
+          this.residentForm.controls['key'].enable();
+        }else{ 
+          this.disableKeySelection = true;
+          this.residentForm.controls['key'].disable();
+        }
+        
+      }
+    );
   }
 
   submitNewResident(){ 
@@ -64,27 +97,27 @@ export class NewResidentComponent implements OnInit {
     })
   }
 
+   
+  onFileSelected(event){ 
+    // complete setting file value
+    let file = (event.target as HTMLInputElement).files[0];
+    // let file = event.target.files[0];
+    this.imageForm.patchValue({image: file});
 
-  preview(files){ 
-    if(files.length === 0){
-      return;
-    }
-    
-    let mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null){
-      return;
-    }
-
-    let reader = new FileReader();
-    this.selectedFile = files[0]; // submit together on creation
-    reader.readAsDataURL(files[0]);
-    reader.onload = (_event)=> { 
-      this.imageUrl = reader.result;
+    if (file) { 
+      const reader = new FileReader();
+      reader.onload = () =>{ 
+        this.imageUrl = reader.result as string;
+      };
+      reader.readAsDataURL(file);
     }
   }
   
   closeDialog(): void{ 
     this.dialogRef.close();
   }
+
+  
+
 
 }

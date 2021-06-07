@@ -17,6 +17,19 @@ export class KeyService {
     return this.httpClient.get<Key[]>(url);
   }
 
+  // include query for livingunit
+  public getKeyQuery(livingunitid: string){
+    let url = `${ADDRESS}/key`
+    let params = new HttpParams()
+      .set('livingunitid',livingunitid);
+    let options : any = {
+      responseType : 'json',
+      params: params
+    }
+    return this.httpClient.get(url,options);
+
+  }
+
   public newKey(keyvalue: string, livingunitid: string): Observable<any>{
     let url = `${ADDRESS}/key/new`;
     let payload = new HttpParams()

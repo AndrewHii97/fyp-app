@@ -14,6 +14,7 @@ export class ResidentService {
   public getResident(approved: string): any{ 
     let url = `${ADDRESS}/resident`;
     let query = new HttpParams().set('approved',approved);
+
     // return Observable to an array of Resident information 
     let options: any = { 
       params: query,
@@ -24,7 +25,6 @@ export class ResidentService {
 
   public createResident(resident: Resident): Observable<any>{
     let url = `${ADDRESS}/resident`
-    console.log(resident);
     let payload = new HttpParams()
       .set('name', resident.name)
       .set('gender', resident.gender)
@@ -38,6 +38,23 @@ export class ResidentService {
       responseType : 'json'
     }
     return this.httpClient.post(url, payload, options);
+  }
+
+  // check if image provided fulfill requirement include 
+  // 1. single face only
+  // 2. not in collection 
+  // 3. clear image
+  public checkImageUpload(file, fileName): Observable<any>{ 
+    let url = `${ADDRESS}/resident/image`;
+    let formData = new FormData();
+    formData.append('profilepic',file, fileName);
+    let headers = new HttpHeaders();
+    let options : any = { 
+      headers: headers,
+      responseType: 'json'
+    }
+    return this.httpClient.post<any>(url,formData,options)
+
   }
   
 }
