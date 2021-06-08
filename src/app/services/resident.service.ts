@@ -39,22 +39,33 @@ export class ResidentService {
     }
     return this.httpClient.post(url, payload, options);
   }
-
-  // check if image provided fulfill requirement include 
+// check if image provided fulfill requirement include 
   // 1. single face only
   // 2. not in collection 
   // 3. clear image
-  public checkImageUpload(file, fileName): Observable<any>{ 
-    let url = `${ADDRESS}/resident/image`;
+  public checkImageUpload(file): Observable<any>{ 
+    let url = `${ADDRESS}/resident/image/check`;
     let formData = new FormData();
-    formData.append('profilepic',file, fileName);
+    formData.append('checkImage',file, file.name);
     let headers = new HttpHeaders();
     let options : any = { 
       headers: headers,
       responseType: 'json'
     }
     return this.httpClient.post<any>(url,formData,options)
+  }
 
+  public uploadImage(id, file){
+    let url = `${ADDRESS}/resident/image`;
+    let formData = new FormData();
+    formData.append('image',file, file.name);
+    formData.append('id', id);
+    let headers = new HttpHeaders();
+    let options :any = { 
+      headers: headers,
+      responseType : 'json'
+    }
+    return this.httpClient.post<any>(url,formData,options)
   }
   
 }

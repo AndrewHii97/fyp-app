@@ -7,15 +7,15 @@ import { KeyService } from '../../services/key.service'
 import { House } from '../../interfaces/house';
 import { Key } from '../../interfaces/key';
 import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms'
-import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
-import { ReadVarExpr, ThisReceiver } from '@angular/compiler';
-import { fileURLToPath } from 'url';
-
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-new-resident',
   templateUrl: './new-resident.component.html',
-  styleUrls: ['./new-resident.component.css']
+  styleUrls: ['./new-resident.component.css'],
+  providers: [{ 
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true}
+  }]
 })
 export class NewResidentComponent implements OnInit {
   
@@ -24,6 +24,9 @@ export class NewResidentComponent implements OnInit {
   public keys;
   public disableKeySelection: boolean = true;
   public imageUrl;
+  public validPhoto = false;
+  public message;
+  public loading = false;
 
   constructor(private fb: FormBuilder,
     private dialogRef: MatDialogRef<NewResidentComponent>,
@@ -40,11 +43,11 @@ export class NewResidentComponent implements OnInit {
     username : [''],
     password: [''],
     unitcode : [''],
-    key: [{value: '', disabled: this.disableKeySelection}, Validators.required]
+    key: [{value: '', disabled: this.disableKeySelection}]
   });
 
   public imageForm : FormGroup = this.fb.group({
-    image : [null]
+    image : [null, Validators.required]
   })
 
 
@@ -93,12 +96,19 @@ export class NewResidentComponent implements OnInit {
       password: this.residentForm.controls.password.value,
       livingunitid: this.residentForm.controls.unitcode.value.livingunitid
     }).subscribe((res)=>{
-      this.dialogRef.close();
+      let id = res.id
+      this.residentService.uploadImage(id,this.imageForm.controls.image.value).subscribe(
+        (resp)=>{ 
+          this.dialogRef.close();
+        }
+      );
     })
+
   }
 
    
   onFileSelected(event){ 
+    this.loading = true;
     // complete setting file value
     let file = (event.target as HTMLInputElement).files[0];
     // let file = event.target.files[0];
@@ -111,7 +121,15 @@ export class NewResidentComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+    this.residentService.checkImageUpload( this.imageForm.controls.image.value )
+      .subscribe((res)=>{ 
+        this.loading = false;
+        this.validPhoto = res.valid;
+        this.message = res.message;
+      });
+
   }
+
   
   closeDialog(): void{ 
     this.dialogRef.close();
