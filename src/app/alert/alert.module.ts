@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { AlertRoutingModule } from './alert-routing.module';
 import { AlertComponent } from './alert.component';
+import { AsyncPipe } from '../../../node_modules/@angular/common';
+
 
 
 @NgModule({
@@ -11,7 +13,8 @@ import { AlertComponent } from './alert.component';
   ],
   imports: [
     CommonModule,
-    AlertRoutingModule
-  ]
+    AlertRoutingModule,
+  ],
+  providers: [AsyncPipe]
 })
 export class AlertModule { }
