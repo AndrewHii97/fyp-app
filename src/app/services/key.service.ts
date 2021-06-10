@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { ADDRESS } from '../config/config';
 import { Observable } from 'rxjs';
 import { Key } from '../interfaces/key';
+import { NgStyle } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class KeyService {
   }
 
   // include query for livingunit
-  public getKeyQuery(livingunitid: string){
+  public getKeyQuery(livingunitid: string):Observable<Key[]>{
     let url = `${ADDRESS}/key`
     let params = new HttpParams()
       .set('livingunitid',livingunitid);
@@ -26,7 +27,10 @@ export class KeyService {
       responseType : 'json',
       params: params
     }
-    return this.httpClient.get(url,options);
+    return this.httpClient.get<Key[]>(url,{ 
+      params: params,
+      responseType: 'json'
+    });
 
   }
 
@@ -60,6 +64,7 @@ export class KeyService {
     }
     return this.httpClient.patch<any>(url, payload, option);
   }
+
 
 
 

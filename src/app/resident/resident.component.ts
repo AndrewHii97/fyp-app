@@ -80,8 +80,12 @@ export class ResidentComponent implements OnInit {
   }
 
   deleteResident(key):void { 
-    // call deleteResident in ResidentService 
-    console.log('this delete all traces of the resident')
+    this.residentService.deleteResident(key.id).subscribe((res)=>{
+      if( res.valid ) { 
+        console.log("delete complete")
+      }
+    })
+    this.getResident();
   }
 
   applyFilter():void { 

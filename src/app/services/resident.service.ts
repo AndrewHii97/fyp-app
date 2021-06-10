@@ -3,6 +3,7 @@ import { ADDRESS } from '../config/config';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http'
+import { Key } from '../interfaces/key';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,7 @@ export class ResidentService {
       .set('livingunitid',resident.livingunitid)
       .set('username',resident.username)
       .set('password',resident.password)
+      .set('keyid', resident.keyid)
     let options : any = { 
       responseType : 'json'
     }
@@ -66,6 +68,43 @@ export class ResidentService {
       responseType : 'json'
     }
     return this.httpClient.post<any>(url,formData,options)
+  }
+
+  public deleteResident(id): Observable<any>{ 
+    let url = `${ADDRESS}/resident/${id}`;
+    let options : any = {
+      responseType: 'json'
+    }
+    return this.httpClient.delete<any>(url, options);
+  }
+
+  public findKeyOwned(residentId): Observable<Key>{
+    let url = `${ADDRESS}/resident/key`;
+    let query = new HttpParams().set('id',residentId);
+    let options : any = { 
+      params: query,
+      responseType: 'json'
+    }
+    return this.httpClient.get<Key>(url, {
+      params: query,
+      responseType: 'json'
+    });
+  }
+
+  public updateResident(resident: Resident): Observable<any>{
+    let url = `${ADDRESS}/resident/${resident.id}`;
+    let payload = new HttpParams()
+      .set('name',resident.name)
+      .set('gender',resident.gender)
+      .set('address',resident.address)
+      .set('contact',resident.contact)
+      .set('icno',resident.icno)
+      .set('livingunitid',resident.livingunitid)
+      .set('keyid',resident.keyid)
+    let option : any = {
+      responseType: 'json'
+    }
+    return this.httpClient.patch<any>(url,payload,option);
   }
   
 }

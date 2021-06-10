@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject} from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog'
+import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog'
 import { ResidentService } from '../../services/resident.service';
 import { HousingUnitService } from '../../services/housing-unit.service'
 import { Resident } from '../../interfaces/resident';
@@ -94,7 +94,8 @@ export class NewResidentComponent implements OnInit {
       contact: this.residentForm.controls.contact.value,
       username: this.residentForm.controls.username.value,
       password: this.residentForm.controls.password.value,
-      livingunitid: this.residentForm.controls.unitcode.value.livingunitid
+      livingunitid: this.residentForm.controls.unitcode.value.livingunitid,
+      keyid: this.residentForm.controls.key.value.keyid
     }).subscribe((res)=>{
       let id = res.id
       this.residentService.uploadImage(id,this.imageForm.controls.image.value).subscribe(

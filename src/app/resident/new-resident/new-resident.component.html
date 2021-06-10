@@ -1,9 +1,9 @@
 <mat-progress-spinner *ngIf="loadingStatus"></mat-progress-spinner>
 <h1 mat-dialog-title>New Resident</h1>
-<div mat-dialog-content>
+<div *ngIf="!loadingStatus" mat-dialog-content>
     <mat-horizontal-stepper [linear]="true" >
         <mat-step [stepControl]="residentForm" errorMessage="Form not Completed">
-            <form *ngIf="!loadingStatus" [formGroup]="residentForm"
+            <form [formGroup]="residentForm"
             (ngSubmit)="submitNewResident()">
                 <ng-template matStepLabel>Fill In Resident Detail</ng-template>
                 <mat-form-field class="form-component spacing">

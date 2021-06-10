@@ -9,5 +9,6 @@ export interface Resident{
     password? : string;
     livingunitid? : string;
     unitcode? : string;
+    keyid? : string;
     approved? : string;
 }
