@@ -106,5 +106,12 @@ export class ResidentService {
     }
     return this.httpClient.patch<any>(url,payload,option);
   }
+
+  public getResidentImage(residentid : string): Observable<any>{
+    let url =`${ADDRESS}/resident/image`;
+    let query = new HttpParams()
+      .set('id', residentid);
+    return this.httpClient.get<any>(url,{params: query, responseType: 'json'});
+  }
   
 }

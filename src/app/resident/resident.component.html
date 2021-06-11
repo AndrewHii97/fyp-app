@@ -69,6 +69,7 @@
                     <mat-cell *matCellDef="let element">
                         <mat-button class="pointer" mat-icon-button (click)="editResident(element)"><mat-icon>launch</mat-icon></mat-button>
                         <mat-button class="pointer" mat-icon-button color="warn" (click)="deleteResident(element)"><mat-icon>delete_outline</mat-icon></mat-button>
+                        <mat-button class="pointer" mat-icon-button color="warn" (click)="updateResidentImage(element)"><mat-icon>face</mat-icon></mat-button>
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="loading">

@@ -8,6 +8,7 @@ import { ResidentComponent } from './resident.component';
 import { EditResidentComponent } from './edit-resident/edit-resident.component';
 import { NewResidentComponent } from './new-resident/new-resident.component';
 import { PendingResidentComponent } from './pending-resident/pending-resident.component';
+import { EditImageComponent } from './edit-image/edit-image.component';
 
 
 
@@ -16,7 +17,8 @@ import { PendingResidentComponent } from './pending-resident/pending-resident.co
     ResidentComponent,
     EditResidentComponent,
     NewResidentComponent,
-    PendingResidentComponent
+    PendingResidentComponent,
+    EditImageComponent
   ],
   imports: [
     CommonModule,

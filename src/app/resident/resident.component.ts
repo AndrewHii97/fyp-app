@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ResidentService } from '../services/resident.service';
 import { NewResidentComponent } from './new-resident/new-resident.component';
 import { EditResidentComponent } from './edit-resident/edit-resident.component';
+import { EditImageComponent } from './edit-image/edit-image.component';
 
 @Component({
   selector: 'app-resident',
@@ -82,7 +83,8 @@ export class ResidentComponent implements OnInit {
   deleteResident(key):void { 
     this.residentService.deleteResident(key.id).subscribe((res)=>{
       if( res.valid ) { 
-        console.log("delete complete")
+        this.getResident();
+
       }
     })
     this.getResident();
@@ -105,5 +107,21 @@ export class ResidentComponent implements OnInit {
     }
     this.applyFilter();
   }
+
+  updateResidentImage(resident){ 
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.width = "60%";
+    dialogConfig.data = {...resident};
+    let dialogRef : MatDialogRef<EditImageComponent> = 
+      this.createDialog.open(EditImageComponent,dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      (res)=>{
+        this.getResident();
+      }
+    )
+  }
+
 
 }
