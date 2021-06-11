@@ -29,6 +29,7 @@
         <mat-selection-list #sideMenu [multiple]="false" (click)="changeContent(sideMenu)">
             <mat-list-option routerLink="dashboard" [selected]="true" value="Dashboard"><mat-icon matListIcon >space_dashboard</mat-icon>Dashboard</mat-list-option>
             <mat-list-option routerLink="alert" value="Alert"><mat-icon matListIcon >warning</mat-icon>Alert</mat-list-option>
+            <mat-list-option routerLink="entry" value="Entry"><mat-icon matListIcon>check_circle</mat-icon>Entry</mat-list-option>
             <mat-list-option routerLink="resident" value="Resident"><mat-icon matListIcon >face</mat-icon>Resident</mat-list-option>
             <mat-list-option routerLink="key" value="Key"><mat-icon matListIcon >vpn_key</mat-icon>Key</mat-list-option>
             <mat-list-option routerLink="house" value="HousingUnit"><mat-icon matListIcon >apartment</mat-icon>HousingUnit</mat-list-option>

@@ -113,5 +113,21 @@ export class ResidentService {
       .set('id', residentid);
     return this.httpClient.get<any>(url,{params: query, responseType: 'json'});
   }
+
+  public updateResidentImage(faceid, photopath ,photoid, file){
+    let url = `${ADDRESS}/resident/image`;
+    let formData = new FormData();
+    formData.append('image',file, file.name);
+    formData.append('photoid',photoid); // original photoid
+    formData.append('photopath',photopath); // original photopath
+    formData.append('faceid',faceid);
+    let headers = new HttpHeaders();
+    let options :any = { 
+      headers: headers,
+      responseType : 'json'
+    }
+    return this.httpClient.patch<any>(url,formData,options)
+
+  }
   
 }

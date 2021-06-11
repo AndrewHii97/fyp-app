@@ -65,7 +65,11 @@ export class EditImageComponent implements OnInit {
   }
 
   public uploadNewImage(){
-    console.log("Upload New Image Start")
+    this.residentService.updateResidentImage(this.oriImage.faceid,this.oriImage.photopath,this.oriImage.photoid, this.imageControl.value).subscribe(
+      (res)=>{
+        this.closeDialog();
+      }
+    )
 
   }
 
