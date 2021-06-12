@@ -5,8 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator'
 import { Alert } from '../../interfaces/alert';
 import { Security } from '../../interfaces/security'
-import { single } from 'rxjs/operators';
-import { ThrowStmt } from '@angular/compiler';
+import { HostListener } from '@angular/core';
+
 @Component({
   selector: 'app-alert-pending',
   templateUrl: './alert-pending.component.html',
@@ -18,6 +18,17 @@ export class AlertPendingComponent implements OnInit {
   public searchKey : string; 
   public categorySelected : string = "";
   public selectedAlert;
+
+  @HostListener('document:visibilitychange',['$event'])
+  visibilityChange(){
+    this.checkHiddenDocument();
+  }
+
+  checkHiddenDocument(){
+    if (!document.hidden){
+      this.getAlertsPending();
+    }
+  }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator : MatPaginator
@@ -50,7 +61,6 @@ export class AlertPendingComponent implements OnInit {
   getAlertsPending(): void { 
     this.alertService.getAlertListPending().subscribe(
       (alerts)=>{
-        console.log(alerts);
         this.alertlist = new MatTableDataSource(alerts);
         this.alertlist.sort = this.sort;
         this.alertlist.paginator = this.paginator;

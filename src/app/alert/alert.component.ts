@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator'
 import { Alert } from '../interfaces/alert';
 import { Security } from '../interfaces/security';
-
+import { HostListener } from '@angular/core';
 
 
 @Component({
@@ -25,21 +25,21 @@ export class AlertComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator : MatPaginator
 
+  @HostListener('document:visibilitychange',['$event'])
+  visibilityChange(){
+    this.checkHiddenDocument();
+  }
+
+  checkHiddenDocument(){
+    if (!document.hidden){
+      this.getAlerts()
+      console.log('document is shown')
+    }
+  }
   // try to refresh upon refocus for alert to match the alert notification
   constructor(private messagingService: MessagingService,
     private alertService : AlertService 
-    
     ) {
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        //do whatever you want
-        console.log("Hidden");
-      }
-      else {
-        //do whatever you want
-        console.log("SHOWN");
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -61,7 +61,6 @@ export class AlertComponent implements OnInit {
   getAlerts(): void { 
     this.alertService.getAlertList().subscribe(
       (alerts)=>{
-        console.log(alerts);
         this.alertlist = new MatTableDataSource(alerts);
         this.alertlist.sort = this.sort;
         this.alertlist.paginator = this.paginator;
