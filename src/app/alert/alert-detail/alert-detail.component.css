@@ -22,3 +22,19 @@
     .pointer { 
 	cursor: pointer;
     }
+
+    .inline-block{
+        display: inline-block;
+    }
+
+    .flexbox{ 
+        display: flex;
+    }
+
+    .card-size{
+        width: 300px;
+    }
+
+    .block{
+        display:block;
+    }

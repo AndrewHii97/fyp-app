@@ -11,4 +11,5 @@ export interface Resident{
     unitcode? : string;
     keyid? : string;
     approved? : string;
+    imageurl? : string;
 }

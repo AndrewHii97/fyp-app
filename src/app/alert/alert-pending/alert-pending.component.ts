@@ -1,54 +1,34 @@
-import { MessagingService } from '../services/messaging.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertService } from '../services/alert.service';
+import { AlertService } from '../../services/alert.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator'
-import { Alert } from '../interfaces/alert';
-import { Security } from '../interfaces/security';
-
-
-
+import { Alert } from '../../interfaces/alert';
+import { Security } from '../../interfaces/security'
+import { single } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.css']
+  selector: 'app-alert-pending',
+  templateUrl: './alert-pending.component.html',
+  styleUrls: ['./alert-pending.component.css']
 })
-export class AlertComponent implements OnInit {
+export class AlertPendingComponent implements OnInit {
   public alertlist : MatTableDataSource<Alert>;
   public displayedColumn : string[] = ['issueid','issuedate','issuetime','description','action']
   public searchKey : string; 
   public categorySelected : string = "";
   public selectedAlert;
-  public message;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator : MatPaginator
 
   // try to refresh upon refocus for alert to match the alert notification
-  constructor(private messagingService: MessagingService,
+  constructor(
     private alertService : AlertService 
-    
-    ) {
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        //do whatever you want
-        console.log("Hidden");
-      }
-      else {
-        //do whatever you want
-        console.log("SHOWN");
-      }
-    });
-  }
+    ) {}
 
-  ngOnInit(): void {
-    this.messagingService.currentMessage.subscribe((mesg) => {
-      console.log(mesg);
-      this.message = mesg;
-    })
-    this.getAlerts();
-
+  ngOnInit(): void {    
+    this.getAlertsPending()
   }
 
 
@@ -57,9 +37,18 @@ export class AlertComponent implements OnInit {
     this.selectedAlert = alert;
   }
   
+  approveAlert(alert):void {
+    let alertid = alert.alertid;
+    this.alertService.approveAlert(alertid).subscribe(
+      (res)=>{
+        this.getAlertsPending();
+      }
+    )
+  }
 
-  getAlerts(): void { 
-    this.alertService.getAlertList().subscribe(
+
+  getAlertsPending(): void { 
+    this.alertService.getAlertListPending().subscribe(
       (alerts)=>{
         console.log(alerts);
         this.alertlist = new MatTableDataSource(alerts);
@@ -75,7 +64,7 @@ export class AlertComponent implements OnInit {
     this.alertService.deleteAlert(photoid, alertid).subscribe(
       (res)=>{
         console.log("alert deleted");
-        this.getAlerts();
+        this.getAlertsPending();
       }
     )
   }
@@ -96,11 +85,5 @@ export class AlertComponent implements OnInit {
       this.searchKey = "" 
     }
     this.applyFilter();
-  }
-
-  tabSelectionChange(event){
-    if(event.tab.textLabel = "Reviewed"){
-      this.getAlerts()
-    }
   }
 }
