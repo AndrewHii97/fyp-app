@@ -1,0 +1,66 @@
+<mat-card  class="mat-elevation-z8 left-right-margin">
+	<mat-card-title>Entry Detail</mat-card-title>
+	<mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+	<mat-card-content class="flexbox" *ngIf="!loading">
+		<h3 *ngIf="!oriImageUrl">Select in table to display detail</h3>
+		<div class="inline-block">
+			<img *ngIf="oriImageUrl" [src]="oriImageUrl" width="400px" height="auto">
+		</div>
+		<div *ngIf="oriImageUrl" class="inline-block spacing">
+			<mat-form-field appearance="outline">
+				<mat-label>EntrytId</mat-label>
+				<input matInput readonly="true" type='text' [value]="selectedEntry.entryid">
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>EntryDate</mat-label>
+				<input matInput readonly="true" type='text' [value]="selectedEntry.entrydate">
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>EntryTime</mat-label>
+				<input matInput readonly="true" type='text' [value]="selectedEntry.entrytime">
+			</mat-form-field>
+			<mat-form-field appearance="outline" class="block">
+				<mat-label>Resident</mat-label>
+				<textarea matInput readonly="true" type='text' [value]="selectedEntry.name"></textarea>
+			</mat-form-field>
+		</div>
+	</mat-card-content>
+</mat-card>
+<mat-card class="mat-elevation-z8 left-right-margin">
+	<mat-card-title>Resident Identified</mat-card-title>
+	<h3 *ngIf="!oriImageUrl">Select in table to display detail</h3>
+	<h3 *ngIf="facesNotFound">No Faces Recognized</h3>
+	<mat-card-content class="flexbox" *ngIf="recognizedFace">
+		<img class="inline-block image" [src]="recognizedFace.imageurl">
+		<div class="inline-block">
+			<div>
+				<mat-form-field class="left-right-margin" appearance="outline">
+					<mat-label>Id</mat-label>
+					<input matInput readonly="true" type='text' [value]="recognizedFace.id">
+				</mat-form-field>
+				<mat-form-field class="left-right-margin" appearance="outline">
+					<mat-label>Name</mat-label>
+					<input matInput readonly="true" type='text' [value]="recognizedFace.name">
+				</mat-form-field>
+				<mat-form-field class="left-right-margin" appearance="outline">
+					<mat-label>IcNo</mat-label>
+					<input matInput readonly="true" type='text' [value]="recognizedFace.icno">
+				</mat-form-field>
+			</div>
+			<div>
+				<mat-form-field class="left-right-margin block"  appearance="outline">
+					<mat-label>PhotoKey</mat-label>
+					<textarea matInput readonly="true" type='text'
+						[value]="recognizedFace.photopath"></textarea>
+				</mat-form-field>
+			</div>
+			<div>
+				<mat-form-field class="left-right-margin block" appearance="outline">
+					<mat-label>FaceId</mat-label>
+					<textarea matInput readonly="true" type='text'
+						[value]="recognizedFace.faceid"></textarea>
+				</mat-form-field>
+			</div>
+		</div>
+	</mat-card-content>
+</mat-card>

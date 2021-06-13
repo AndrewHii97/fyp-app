@@ -1,0 +1,67 @@
+<app-entry-detail [selectedEntry]="selectedEntry"></app-entry-detail>
+<div class="mat-elevation-z8 left-right-margin">
+	<mat-form-field floatLabel="never">
+	    <input matInput [(ngModel)]="searchKey" placeholder="Search"
+	    autocomplete="off" (keyup)="applyFilter()">
+	    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+	    *ngIf="searchKey" (click)="onSearchClear()">
+		<mat-icon>close</mat-icon>
+	    </button>
+	</mat-form-field>
+	<mat-form-field class="spacing">
+	    <mat-label>Search Categories</mat-label>
+	    <mat-select [(ngModel)]="categorySelected"
+	    (openedChange)="changeCategory()">
+		<mat-option>None</mat-option>
+		<mat-option value="entryid">Id</mat-option>
+		<mat-option value="entrydate">EntryDate</mat-option>
+		<mat-option value="entrytime">EntryTime</mat-option>
+		<mat-option value="name">Resident</mat-option>
+	    </mat-select>
+	</mat-form-field>
+    </div>
+    <div class="mat-elevation-z8 left-right-margin">
+	<mat-table [dataSource]="entrylist" matSort matSortActive="keyid"
+	matSortDirection="asc"> 
+	    <ng-container matColumnDef="entryid">
+		<!-- columndef have to be insde the displayd column -->
+		<mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+		<mat-cell *matCellDef="let element">{{element.entryid}}</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="entrydate">
+		<mat-header-cell *matHeaderCellDef mat-sort-header>EntryDate</mat-header-cell>
+		<mat-cell *matCellDef="let element">{{element.entrydate}}</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="entrytime"> 
+		 <mat-header-cell *matHeaderCellDef mat-sort-header>EntryTime</mat-header-cell>
+		<mat-cell *matCellDef="let element">{{element.entrytime}}</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="name"> 
+		 <mat-header-cell *matHeaderCellDef mat-sort-header>Resident</mat-header-cell>
+		<mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="action">
+		<mat-header-cell *matHeaderCellDef></mat-header-cell>
+		<mat-cell *matCellDef="let element">
+		    <mat-button class="pointer" mat-icon-button color="warn" (click)="deleteEntry(element)"><mat-icon>delete_outline</mat-icon></mat-button>
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="loading">
+		<mat-footer-cell *matFooterCellDef colspan="4">
+		    Loading data....
+		</mat-footer-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="noData">
+		<mat-footer-cell *matFooterCellDef colspan="4">
+		    No Data
+		</mat-footer-cell>
+	    </ng-container>
+	    <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
+	    <mat-row (click)="onSelect(row)"  matRipple *matRowDef="let row; columns: displayedColumn;"></mat-row>
+	    <mat-footer-row *matFooterRowDef="['loading']" 
+	    [ngClass]="{'hide': entrylist != null}"></mat-footer-row>
+	    <mat-footer-row *matFooterRowDef="['noData']"
+	    [ngClass]="{'hide': !(entrylist != null && entrylist.data.length == 0)}"></mat-footer-row>
+	</mat-table>
+	<mat-paginator [pageSizeOptions]="[5, 10, 25]" pageSize="5" showFirstLastButtons></mat-paginator>
+</div>

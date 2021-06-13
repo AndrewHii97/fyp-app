@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { subscribeOn } from 'rxjs/operators';
 import { AlertService } from 'src/app/services/alert.service';
 import { Alert } from '../../interfaces/alert';
 

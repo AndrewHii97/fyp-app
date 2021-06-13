@@ -24,6 +24,14 @@ export class HomeComponent implements OnInit {
     private messagingService : MessagingService) { }
 
   ngOnInit(): void {
+    this.messagingService.requestPermission();
+    // only accept notification if login succesfully
+    this.messagingService.receiveMessage();
+    // subscribe to the mesg
+    this.messagingService.currentMessage.subscribe((mesg)=>{
+      console.log(mesg)
+      console.log("seomthing get called ")
+    })
     this.id = parseInt(localStorage.getItem('id'));
     this.profileService.getProfile(this.id).subscribe(
       (res)=>{
@@ -33,14 +41,7 @@ export class HomeComponent implements OnInit {
         this.imageUrl = "";
       }
     )
-    this.messagingService.requestPermission();
-    // only accept notification if login succesfully
-    this.messagingService.receiveMessage();
-    // subscribe to the mesg
-    this.messagingService.currentMessage.subscribe((mesg)=>{
-      console.log(mesg)
-      console.log("seomthing get called ")
-    })
+    
   }
 
   onToolbarMenuToggle(){ 

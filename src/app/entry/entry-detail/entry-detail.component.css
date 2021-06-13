@@ -1,0 +1,46 @@
+.hide { 
+	display:none;
+    }
+    
+    .left-right-margin { 
+	margin: 50px 25px;
+    }
+    
+    .spacing { 
+	margin: 0px 25px;
+    }
+    
+    .inline-block{ 
+	display: inline-block;
+    }
+    
+    .mat-column-livingunitid{ 
+	margin: 0px 25px;
+	flex: 0 1 auto;
+    }
+    
+    .pointer { 
+	cursor: pointer;
+    }
+
+    .inline-block{
+        display: inline-block;
+    }
+
+    .flexbox{ 
+        display: flex;
+    }
+
+    .card-size{
+        width: 300px;
+    }
+
+    .block{
+        display:block;
+    }
+
+    .image{
+        object-fit:cover;
+        width: 300px;
+        height: auto;
+    }

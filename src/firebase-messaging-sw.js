@@ -20,3 +20,9 @@ firebase.initializeApp({
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
 const messaging = firebase.messaging();
+
+
+self.addEventListener('notificationclick',function(event){
+    event.notification.close();
+    event.waitUntil(self.clients.openWindow(event.webpush.fcmOptions.link));
+})

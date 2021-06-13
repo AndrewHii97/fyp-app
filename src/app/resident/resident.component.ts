@@ -46,6 +46,20 @@ export class ResidentComponent implements OnInit {
         this.residentlist = new MatTableDataSource(resident);
         this.residentlist.sort = this.sort;
         this.residentlist.paginator = this.paginator;
+        this.residentlist.filterPredicate = (data, filter)=>{
+          let match;
+          if (this.categorySelected){ 
+            return data[this.categorySelected].toString().toLowerCase().includes(filter);
+          }else{ 
+            return this.displayedColumn.some(ele => {
+              if (typeof data[ele] === 'number'){
+                return match = data[ele] === parseInt(filter);
+              }else if ( typeof data[ele] === 'string'){
+                return match = data[ele].toLowerCase().includes(filter);
+              }
+            })
+          }
+        }
       }
     )
   }

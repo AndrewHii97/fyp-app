@@ -33,7 +33,6 @@ export class AlertComponent implements OnInit {
   checkHiddenDocument(){
     if (!document.hidden){
       this.getAlerts()
-      console.log('document is shown')
     }
   }
   // try to refresh upon refocus for alert to match the alert notification

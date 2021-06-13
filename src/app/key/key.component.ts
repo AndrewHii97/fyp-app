@@ -43,6 +43,20 @@ export class KeyComponent implements OnInit {
         this.keylist = new MatTableDataSource(keys);
         this.keylist.sort = this.sort;
         this.keylist.paginator = this.paginator;
+        this.keylist.filterPredicate = (data, filter)=>{
+          let match;
+          if (this.categorySelected){ 
+            return data[this.categorySelected].toString().toLowerCase().includes(filter);
+          }else{ 
+            return this.displayedColumn.some(ele => {
+              if (typeof data[ele] === 'number'){
+                return match = data[ele] === parseInt(filter);
+              }else if ( typeof data[ele] === 'string'){
+                return match = data[ele].toLowerCase().includes(filter);
+              }
+            })
+          }
+        }
       }
     )
   }
