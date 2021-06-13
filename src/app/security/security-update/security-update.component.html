@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Edit Security</h1>
+<form [formGroup]="securityForm" (ngSubmit)="editSecurity()">
+	<ng-template matStepLabel>Fill In Officer Detail</ng-template>
+	<mat-form-field class="form-component spacing">
+		<mat-label>Name</mat-label>
+		<input formControlName="securityname" matInput type="text" placeholder="Name" required>
+	</mat-form-field>
+	<mat-form-field class="form-component spacing">
+		<mat-label>Gender</mat-label>
+		<mat-select formControlName="gender" required>
+			<mat-option value="male">Male</mat-option>
+			<mat-option value="female">Female</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field class="spacing">
+		<mat-label>Contact</mat-label>
+		<input formControlName="contact" matInput type="text" placeholder="Contact" required>
+	</mat-form-field>
+	<mat-form-field class="spacing">
+		<mat-label>OfficerType</mat-label>
+		<mat-select formControlName="officertype" required>
+			<mat-option value="admin">Admin</mat-option>
+			<mat-option value="guard">Guard</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<button class="spacing" mat-raised-button type="submit">Submit</button>
+	<button class="spacing" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+</form>

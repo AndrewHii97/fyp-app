@@ -1,0 +1,61 @@
+<mat-progress-spinner *ngIf="loadingStatus"></mat-progress-spinner>
+<h1 mat-dialog-title>New Resident</h1>
+<div *ngIf="!loadingStatus" mat-dialog-content>
+    <mat-horizontal-stepper [linear]="true" >
+        <mat-step [stepControl]="securityForm" errorMessage="Form not Completed">
+            <form [formGroup]="securityForm"
+            (ngSubmit)="submitNewSecurity()">
+                <ng-template matStepLabel>Fill In Officer Detail</ng-template>
+                <mat-form-field class="form-component spacing">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="securityname" matInput type="text" placeholder="Name" required>
+                </mat-form-field>
+                <mat-form-field class="form-component spacing">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender" required>
+                        <mat-option value="male">Male</mat-option>
+                        <mat-option value="gender">Female</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Contact</mat-label>
+                    <input formControlName="contact" matInput type="text" placeholder="Contact" required>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>OfficerType</mat-label>
+		    <mat-select formControlName="officertype" required>
+			    <mat-option value="admin">Admin</mat-option>
+			    <mat-option value="guard">Guard</mat-option>
+		    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Username</mat-label>
+                    <input formControlName="username" matInput type="text" placeholder="Username" required>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Password</mat-label>
+                    <input formControlName="password" matInput type="password" placeholder="Password" required>
+                </mat-form-field>
+                <button class="spacing" mat-raised-button matStepperNext type="button">Next</button>
+                <button class="spacing" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+            </form>
+        </mat-step>
+        <mat-step [completed]="validPhoto" errorMessage="Valid Photo is required">
+            <form [formGroup]="imageForm">
+                <ng-template matStepLabel>Upload Face Image for Recognition</ng-template>
+                <img *ngIf="imageUrl && imageUrl !== '' " width="300px" height="auto" [src]="imageUrl">
+                <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none">
+                <button (click)="fileInput.click()" type="button" mat-flat-button>Choose Profile Pictures</button>
+                <button [disabled]="!validPhoto" class="spacing" mat-raised-button matStepperNext type="button">Next</button>
+                <button class="spacing" mat-raised-button matStepperPrevious type="button">Previous</button>
+                <button class="spacing" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <h2>Press Submit to complete resident registration</h2>
+            <button mat-raised-button type="button" (click)="submitNewSecurity()">Submit</button>
+            <button mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

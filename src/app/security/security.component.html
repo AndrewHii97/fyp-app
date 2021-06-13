@@ -1,1 +1,82 @@
-<p>security works!</p>
+<div class="mat-elevation-z8 left-right-margin">
+	<button mat-raised-button class="spacing" (click)="onCreate()">
+	    <mat-icon>add</mat-icon>
+	    <mat-label>Create</mat-label>
+	</button>
+	<mat-form-field floatLabel="never">
+	    <input matInput [(ngModel)]="searchKey" placeholder="Search"
+	    autocomplete="off" (keyup)="applyFilter()">
+	    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+	    *ngIf="searchKey" (click)="onSearchClear()">
+		<mat-icon>close</mat-icon>
+	    </button>
+	</mat-form-field>
+	<mat-form-field class="spacing">
+	    <mat-label>Search Categories</mat-label>
+	    <mat-select [(ngModel)]="categorySelected"
+	    (openedChange)="changeCategory()">
+		<mat-option>None</mat-option>
+		<mat-option value="id">Id</mat-option>
+		<mat-option value="securityname">SecurityName</mat-option>
+		<mat-option value="officertype">OfficerType</mat-option>
+		<mat-option value="contact">Contact</mat-option>
+		<mat-option value="username">Username</mat-option>
+	    </mat-select>
+	</mat-form-field>
+    </div>
+<div class="mat-elevation-z8 left-right-margin">
+	<mat-table [dataSource]="securitylist" matSort matSortActive="id" matSortDirection="asc">
+		<ng-container matColumnDef="id">
+			<!-- columndef have to be insde the displayd column -->
+			<mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="securityname">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.securityname}}</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="officertype">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>OfficerType</mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.officertype}}</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="contact">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>Contact</mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.contact}}</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="username">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.username}}</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="action">
+			<mat-header-cell *matHeaderCellDef></mat-header-cell>
+			<mat-cell *matCellDef="let element">
+				<mat-button class="pointer" mat-icon-button (click)="editSecurity(element)">
+					<mat-icon>launch</mat-icon>
+				</mat-button>
+				<mat-button class="pointer" mat-icon-button color="warn"
+					(click)="deleteSecurity(element)">
+					<mat-icon>delete_outline</mat-icon>
+				</mat-button>
+				<mat-button class="pointer" mat-icon-button color="warn" (click)="updateSecurityImage(element)">
+					<mat-icon>face</mat-icon></mat-button>
+			</mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="loading">
+			<mat-footer-cell *matFooterCellDef colspan="4">
+				Loading data....
+			</mat-footer-cell>
+		</ng-container>
+		<ng-container matColumnDef="noData">
+			<mat-footer-cell *matFooterCellDef colspan="4">
+				No Data
+			</mat-footer-cell>
+		</ng-container>
+		<mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
+		<mat-row (click)="onSelect(row)" matRipple *matRowDef="let row; columns: displayedColumn;"></mat-row>
+		<mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': securitylist != null}">
+		</mat-footer-row>
+		<mat-footer-row *matFooterRowDef="['noData']"
+			[ngClass]="{'hide': !(security != null && securitylist.data.length == 0)}"></mat-footer-row>
+	</mat-table>
+	<mat-paginator [pageSizeOptions]="[5, 10, 25]" pageSize="5" showFirstLastButtons></mat-paginator>
+</div>

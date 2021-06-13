@@ -8,6 +8,5 @@ export interface Security {
 	securityname? :string;
 	age? : string;
 	contact? :string;
-	
 }
     
