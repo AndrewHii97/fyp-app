@@ -1,0 +1,24 @@
+.hide { 
+	display:none;
+    }
+    
+    .left-right-margin { 
+	margin: 50px 25px;
+    }
+    
+    .spacing { 
+	margin: 0px 25px;
+    }
+    
+    .inline-block{ 
+	display: inline-block;
+    }
+    
+    .mat-column-livingunitid{ 
+	margin: 0px 25px;
+	flex: 0 1 auto;
+    }
+    
+    .pointer { 
+	cursor: pointer;
+    }

@@ -24,6 +24,12 @@ export class ResidentService {
     return this.httpClient.get(url, options);
   }
 
+  public approveResident(residentid): Observable<any>{
+    let url = `${ADDRESS}/resident/${residentid}/approve`;
+    let payload = new HttpParams()
+    return this.httpClient.post(url,payload);
+  }
+
   public createResident(resident: Resident): Observable<any>{
     let url = `${ADDRESS}/resident`
     let payload = new HttpParams()
