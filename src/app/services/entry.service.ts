@@ -31,5 +31,10 @@ export class EntryService {
     let params = new HttpParams().set('photopath',photopath).set('photoid',photoid);
     return this.httpClient.delete<any>(url,{params:params});
   }
+  
+  public getLatestEntry():Observable<any>{
+    let url = `${ADDRESS}/entry/latest`;
+    return this.httpClient.get<any>(url)
+  }
 
 }

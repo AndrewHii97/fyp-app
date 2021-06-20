@@ -135,5 +135,10 @@ export class ResidentService {
     return this.httpClient.patch<any>(url,formData,options)
 
   }
+
+  public getUnreviewedNumber():Observable<any>{
+    let url = `${ADDRESS}/resident/unreviewed/total` 
+    return this.httpClient.get<any>(url,{responseType: 'json'});
+  }
   
 }

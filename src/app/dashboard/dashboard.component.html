@@ -3,13 +3,13 @@
         <mat-card class="info-card">
             <mat-card-content>
                 <h1>PENDING RESIDENTS</h1>
-                <p>10</p>
+                <p>{{noOfResidentUnapproved}}</p>
             </mat-card-content>
         </mat-card>
         <mat-card class="info-card">
             <mat-card-content>
                 <h1>UNREVIEWED ALERT</h1>
-                <p>25</p>
+                <p>{{noOfAlertUnreviewed}}</p>
             </mat-card-content> 
         </mat-card>
     </div>
@@ -19,24 +19,28 @@
             <mat-card class="my-card">
                 <div class="left-card">
                     <mat-card-title class="title">Latest Alert</mat-card-title>
-                    <img class="card-image"  height="250px" width="500px" src="../../assets/test.jpg">
+                    <img class="card-image" [src]="alertUrl">
                 </div>
                 <div class="right-card">
                     <mat-card-content>
-                        <h3>DATE: 16/06/2020 </h3>
-                        <h3>TIME: 10.25.41</h3>
+                        <h3>ALERTID : {{latestAlert?.alertid}}</h3>
+                        <h3>DATE:{{latestAlert?.alertdate}}</h3>
+                        <h3>TIME:{{latestAlert?.alerttime}}</h3>
+                        <h3>{{latestAlert?.description}}</h3>
                     </mat-card-content>
                 </div>
             </mat-card>
             <mat-card class="my-card">
                 <div class="left-card">
                     <mat-card-title class="title">Latest Entry</mat-card-title>
-                    <img class="card-image" src="../../assets/andrew.jpg">
+                    <img class="card-image" [src]="entryUrl">
                 </div>
                 <div class="right-card">
                     <mat-card-content>
-                        <h3>DATE: 16/06/2020 </h3>
-                        <h3>TIME: 11.01.05</h3>
+                        <h3>ID  :{{latestEntry?.entryid}}</h3>
+                        <h3>Resident: {{latestEntry?.name}}</h3>
+                        <h3>DATE:{{latestEntry?.entrydate}}</h3>
+                        <h3>TIME:{{latestEntry?.entrytime}}</h3>
                     </mat-card-content>
                 </div>
             </mat-card>

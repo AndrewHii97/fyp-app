@@ -43,4 +43,14 @@ export class AlertService {
     let url = `${ADDRESS}/alert/${alertid}/${photoid}`
     return this.httpClient.delete<any>(url);
   }
+
+  getAlertUncheckedTotal(): Observable<any>{
+    let url = `${ADDRESS}/alert/unchecked/total`;
+    return this.httpClient.get<any>(url);
+  }
+
+  getLatestAlert(): Observable<any>{
+    let url = `${ADDRESS}/alert/latest`;
+    return this.httpClient.get<any>(url);
+  }
 }
