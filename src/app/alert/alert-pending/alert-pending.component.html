@@ -1,4 +1,4 @@
-<app-alert-detail [selectedAlert]="selectedAlert"></app-alert-detail>
+<app-alert-detail [showButton]="true" [selectedAlert]="selectedAlert" (actionEvent)="refreshTable()"></app-alert-detail>
 <div class="mat-elevation-z8 left-right-margin">
 	<mat-form-field floatLabel="never">
 	    <input matInput [(ngModel)]="searchKey" placeholder="Search"

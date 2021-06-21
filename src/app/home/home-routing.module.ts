@@ -13,6 +13,9 @@ const routes: Routes = [
     { path: 'entry', loadChildren: () => import('../entry/entry.module').then(m => m.EntryModule) },
     { path: 'security', loadChildren: () => import('../security/security.module').then(m => m.SecurityModule) },
   ]},
+  {
+    path:'', redirectTo:'dashboard',pathMatch: 'full'
+  }
   ];
 
 @NgModule({

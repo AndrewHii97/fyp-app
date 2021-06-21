@@ -34,7 +34,13 @@ export class AlertService {
   }
 
   approveAlert(id): Observable<any>{
-    let url = `${ADDRESS}/alert/${id}`
+    let url = `${ADDRESS}/alert/${id}/check`
+    let body = new HttpParams();
+    return this.httpClient.patch<any>(url,body);
+  }
+
+  approveAlertAsFalse(id): Observable<any>{
+    let url = `${ADDRESS}/alert/${id}/checkFalse`
     let body = new HttpParams();
     return this.httpClient.patch<any>(url,body);
   }

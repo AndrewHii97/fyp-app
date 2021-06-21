@@ -14,7 +14,7 @@ import { HostListener } from '@angular/core';
 })
 export class AlertPendingComponent implements OnInit {
   public alertlist : MatTableDataSource<Alert>;
-  public displayedColumn : string[] = ['issueid','issuedate','issuetime','description','action']
+  public displayedColumn : string[] = ['issueid','issuedate','issuetime','description']
   public searchKey : string; 
   public categorySelected : string = "";
   public selectedAlert;
@@ -57,6 +57,10 @@ export class AlertPendingComponent implements OnInit {
     )
   }
 
+  refreshTable(){
+    this.getAlertsPending();
+  }
+
 
   getAlertsPending(): void { 
     this.alertService.getAlertListPending().subscribe(
@@ -75,6 +79,7 @@ export class AlertPendingComponent implements OnInit {
       (res)=>{
         console.log("alert deleted");
         this.getAlertsPending();
+        this.selectedAlert = null;
       }
     )
   }

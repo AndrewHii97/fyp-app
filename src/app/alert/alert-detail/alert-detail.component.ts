@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter, SimpleChange } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { Alert } from '../../interfaces/alert';
 
@@ -10,11 +10,13 @@ import { Alert } from '../../interfaces/alert';
 })
 export class AlertDetailComponent implements OnInit,OnChanges {
 
-  @Input() selectedAlert : Alert;
+  @Input() selectedAlert;
+  @Input() showButton : boolean = false;
   recognizedFace = []; 
   oriImageUrl : string ;
   loading : boolean = false;
   facesNotFound : boolean = false;
+  @Output() actionEvent = new EventEmitter<string>(); 
 
   constructor(private alertService: AlertService ) { }
 
@@ -52,4 +54,45 @@ export class AlertDetailComponent implements OnInit,OnChanges {
       }
     )
   }
+
+  checkAlert(alert):void{
+    let alertid = alert.alertid;
+    this.alertService.approveAlert(alertid).subscribe(
+      (res)=>{
+        console.log("alert checked");
+        this.actionEvent.emit('check');
+        this.selectedAlert = null;
+        this.oriImageUrl = null;
+        this.recognizedFace = [];
+      }
+    )
+  }
+
+  checkAsFalseAlert(alert):void{
+    let alertid = alert.alertid;
+    this.alertService.approveAlertAsFalse(alertid).subscribe(
+      (res)=>{
+        console.log("alert check as false alert");
+        this.actionEvent.emit('checkAsFalse');
+        this.selectedAlert = null;
+        this.oriImageUrl = null;
+        this.recognizedFace = [];
+      }
+    )
+  }
+
+  deleteAlert(alert):void { 
+    let alertid = alert.alertid;
+    let photoid = alert.photoid;
+    this.alertService.deleteAlert(photoid, alertid).subscribe(
+      (res)=>{
+        console.log("alert deleted");
+        this.actionEvent.emit('delete')
+        this.selectedAlert = null;
+        this.oriImageUrl = null;
+        this.recognizedFace = [];
+      }
+    )
+  }
+
 }

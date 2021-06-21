@@ -9,20 +9,27 @@
 		<div *ngIf="oriImageUrl" class="inline-block spacing">
 			<mat-form-field appearance="outline">
 				<mat-label>AlertId</mat-label>
-				<input matInput readonly="true" type='text' [value]="selectedAlert.alertid">
+				<input matInput readonly="true" type='text' [value]="selectedAlert?.alertid">
 			</mat-form-field>
 			<mat-form-field appearance="outline">
 				<mat-label>AlertDate</mat-label>
-				<input matInput readonly="true" type='text' [value]="selectedAlert.alertdate">
+				<input matInput readonly="true" type='text' [value]="selectedAlert?.alertdate">
 			</mat-form-field>
 			<mat-form-field appearance="outline">
 				<mat-label>AlertTime</mat-label>
-				<input matInput readonly="true" type='text' [value]="selectedAlert.alerttime">
+				<input matInput readonly="true" type='text' [value]="selectedAlert?.alerttime">
 			</mat-form-field>
 			<mat-form-field appearance="outline" class="block">
 				<mat-label>Description</mat-label>
-				<textarea matInput readonly="true" type='text' [value]="selectedAlert.description"></textarea>
+				<textarea matInput readonly="true" type='text' [value]="selectedAlert?.description"></textarea>
 			</mat-form-field>
+			<mat-form-field *ngIf="!showButton" appearance="outline" class="block">
+				<mat-label>Status</mat-label>
+				<input matInput readonly="true" type='text' [value]="selectedAlert?.falsealarm? 'FalseAlarm':'Alert'">
+			</mat-form-field>
+			<button *ngIf="showButton" mat-raised-button (click)="checkAlert(selectedAlert)" ><mat-icon>check</mat-icon>Checked</button>
+			<button *ngIf="showButton" mat-raised-button (click)="checkAsFalseAlert(selectedAlert)"><mat-icon>notifications_off</mat-icon>False Alert</button> 
+			<button *ngIf="showButton" mat-raised-button (click)="deleteAlert(selectedAlert)"><mat-icon>clear</mat-icon>Delete</button>
 		</div>
 	</mat-card-content>
 </mat-card>
