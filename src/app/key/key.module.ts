@@ -6,13 +6,15 @@ import { KeyComponent } from './key.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewKeyComponent } from './new-key/new-key.component';
 import { EditKeyComponent } from './edit-key/edit-key.component';
+import { DeleteKeyAlertComponent } from './delete-key-alert/delete-key-alert.component';
 
 
 @NgModule({
   declarations: [
     KeyComponent,
     NewKeyComponent,
-    EditKeyComponent
+    EditKeyComponent,
+    DeleteKeyAlertComponent
   ],
   imports: [
     CommonModule,

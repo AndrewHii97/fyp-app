@@ -16,7 +16,12 @@
     <!-- Include latest visit and latest alert here -->
     <div class="expand-tray">
         <div class="card-tray">
-            <mat-card class="my-card">
+            <mat-card *ngIf="!alertUrl">
+                <mat-card-content>
+                    <h2>NO ALERT FOUND</h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card *ngIf="alertUrl" class="my-card">
                 <div class="left-card">
                     <mat-card-title class="title">Latest Alert</mat-card-title>
                     <img class="card-image" [src]="alertUrl">
@@ -30,7 +35,12 @@
                     </mat-card-content>
                 </div>
             </mat-card>
-            <mat-card class="my-card">
+            <mat-card *ngIf="!entryUrl">
+                <mat-card-content>
+                    <h2>NO ENTRY FOUND</h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card *ngIf="entryUrl" class="my-card">
                 <div class="left-card">
                     <mat-card-title class="title">Latest Entry</mat-card-title>
                     <img class="card-image" [src]="entryUrl">

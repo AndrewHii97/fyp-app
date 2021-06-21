@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { NewHouseComponent } from './new-house/new-house.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UpdateHouseComponent } from './update-house/update-house.component';
+import { DeleteHouseComponent } from './delete-house/delete-house.component';
 
 @Component({
   selector: 'app-housing-unit',
@@ -115,7 +116,15 @@ export class HousingUnitComponent implements OnInit {
     this.housingUnitService.deleteHouse(house.livingunitid)
       .subscribe(
         (res)=>{
-          this.getHouses();
+          if( res.valid == false && res.message == 'owned'){
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.disableClose = true;
+            dialogConfig.autoFocus = false;
+            dialogConfig.width = "60%";
+            let dialogRef = this.createDialog.open(DeleteHouseComponent,dialogConfig);
+          }else{
+            this.getHouses();
+          }
         }
       );
 

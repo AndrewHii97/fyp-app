@@ -50,6 +50,7 @@ export class EditResidentComponent implements OnInit {
         house = this.houses.find( ele => ele.livingunitid == this.resident.livingunitid );
         this.residentService.findKeyOwned(this.resident.id).subscribe((keyReturned)=>{ 
           key = keyReturned;
+          console.log('keyOwner',key, typeof key);
           this.residentForm.patchValue({
             name : this.resident.name,
             address : this.resident.address,
@@ -58,10 +59,12 @@ export class EditResidentComponent implements OnInit {
             gender: this.resident.gender,
             unitcode: house,
           })
-          this.getHouseKey();
-          this.residentForm.patchValue({
-            key: key
-          })
+          if(key){
+            this.getHouseKey();
+            this.residentForm.patchValue({
+              key: key
+            })
+          }
         })
       }) 
     }

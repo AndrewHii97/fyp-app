@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { NewKeyComponent } from './new-key/new-key.component';
 import { EditKeyComponent } from './edit-key/edit-key.component';
+import { DeleteKeyAlertComponent } from './delete-key-alert/delete-key-alert.component';
 
 @Component({
   selector: 'app-key',
@@ -94,7 +95,16 @@ export class KeyComponent implements OnInit {
   deleteKey(key):void { 
     this.keyService.deleteKey(key.keyid).subscribe(
       (res)=>{
-        if(res.valid){
+        console.log(res)
+        // some body own the key 
+        if (res.valid == false && res.message == 'keyowned'){
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = false;
+          dialogConfig.width = '60%';
+          let dialogRef : MatDialogRef<DeleteKeyAlertComponent> = 
+            this.createDialog.open(DeleteKeyAlertComponent,dialogConfig);
+        }else{
           this.getKeys();
         }
       }

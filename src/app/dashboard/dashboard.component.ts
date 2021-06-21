@@ -46,12 +46,13 @@ export class DashboardComponent implements OnInit {
     this.entryService.getLatestEntry().subscribe((res)=>{
       console.log('latest entry',res);
       this.latestEntry = res;
-      this.entryService.getEntryImageUrl(res.photopath).subscribe(
-        (res)=>{
-          console.log('EntryUrl',res)
-          this.entryUrl = res.imageurl;
-        }
-      )
+      if (res.entryid){
+        this.entryService.getEntryImageUrl(res.photopath).subscribe(
+          (res)=>{
+            console.log('EntryUrl',res)
+            this.entryUrl = res.imageurl;
+        })
+      }
     })
   }
   
@@ -59,10 +60,12 @@ export class DashboardComponent implements OnInit {
     this.alertService.getLatestAlert().subscribe((res)=>{
       console.log('alert',res)
       this.latestAlert = res;
-      this.alertService.getAlertImageUrl(res.photoid).subscribe((res)=>{
-        console.log('alertUrl',res)
-        this.alertUrl = res.imageurl
-      })
+      if(res.alertid) { 
+        this.alertService.getAlertImageUrl(res.photoid).subscribe((res)=>{
+          console.log('alertUrl',res)
+          this.alertUrl = res.imageurl
+        })
+      }
     })
 
   }
