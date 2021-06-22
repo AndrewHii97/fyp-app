@@ -12,6 +12,18 @@ export class ResidentService {
 
   constructor(private httpClient : HttpClient) { }
 
+  public checkResidentIcNo(icno : string): Observable<any>{
+    let url = `${ADDRESS}/resident/icno/check`;
+    let payload = new HttpParams().set('icno',icno);
+    return this.httpClient.post<any>(url,payload,{responseType: 'json'});
+  }
+
+  public checkResidentUsername(username: string): Observable<any>{
+    let url = `${ADDRESS}/resident/username/check`;
+    let payload = new HttpParams().set('username',username);
+    return this.httpClient.post<any>(url,payload,{responseType: 'json'});
+  }
+
   public getResident(approved: string): any{ 
     let url = `${ADDRESS}/resident`;
     let query = new HttpParams().set('approved',approved);

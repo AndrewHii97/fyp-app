@@ -6,7 +6,7 @@
     <span class="toolbar-spacer"></span> 
     <mat-icon mat-card-avatar ></mat-icon> 
     <img class="profile" [src]="imageUrl">
-    <span>Andrew</span>
+    <span>{{name}}</span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>arrow_drop_down</mat-icon>
     </button>
@@ -33,7 +33,7 @@
             <mat-list-option routerLink="resident" value="Resident"><mat-icon matListIcon >face</mat-icon>Resident</mat-list-option>
             <mat-list-option routerLink="key" value="Key"><mat-icon matListIcon >vpn_key</mat-icon>Key</mat-list-option>
             <mat-list-option routerLink="house" value="HousingUnit"><mat-icon matListIcon >apartment</mat-icon>HousingUnit</mat-list-option>
-            <mat-list-option routerLink="security" value="Security"><mat-icon matListIcon >badge</mat-icon>Security</mat-list-option>
+            <mat-list-option *ngIf="officerType == 'admin'" routerLink="security" value="Security"><mat-icon matListIcon >badge</mat-icon>Security</mat-list-option>
         </mat-selection-list>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -8,6 +8,8 @@ import { House } from '../../interfaces/house';
 import { Key } from '../../interfaces/key';
 import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms'
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { TestService } from '../../shared/test.service';
+import { CustomValidatorService } from 'src/app/shared/custom-validator.service';
 
 @Component({
   selector: 'app-new-resident',
@@ -32,15 +34,18 @@ export class NewResidentComponent implements OnInit {
     private dialogRef: MatDialogRef<NewResidentComponent>,
     private houseService: HousingUnitService,
     private residentService: ResidentService,
-    private keyService: KeyService ) { }
+    private keyService: KeyService ,
+    private testService: TestService,
+    private customService : CustomValidatorService
+    ) { }
 
   public residentForm : FormGroup  = this.fb.group({
     name : [''],
     gender : [''],
-    icno : [''],
+    icno : [null ,{ asyncValidators: [this.testService.icNoValidation()], updateOn: 'blur'}],
     address : [''],
     contact : [''],
-    username : [''],
+    username : ['' ,{ asyncValidators: [this.testService.userNameValidation()], updateOn: 'blur'}],
     password: [''],
     unitcode : [''],
     key: [{value: '', disabled: this.disableKeySelection}]

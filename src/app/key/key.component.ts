@@ -16,6 +16,7 @@ import { DeleteKeyAlertComponent } from './delete-key-alert/delete-key-alert.com
 })
 export class KeyComponent implements OnInit {
   
+  public officerType = localStorage.getItem('officertype');
   public keylist : MatTableDataSource<Key>;
   public displayedColumn : string[] = ['keyid','keyvalue','unitcode','action']
   public searchKey : string; 
@@ -31,6 +32,11 @@ export class KeyComponent implements OnInit {
 
   ngOnInit(): void {
     this.getKeys();
+    if (this.officerType == 'admin') {
+     this.displayedColumn = ['keyid','keyvalue','unitcode','action']
+    }else{
+     this.displayedColumn = ['keyid','keyvalue','unitcode']
+    }
   }
 
   onSelect(key): void { 

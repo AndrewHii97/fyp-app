@@ -15,6 +15,7 @@ import { EditImageComponent } from './edit-image/edit-image.component';
   styleUrls: ['./resident.component.css']
 })
 export class ResidentComponent implements OnInit {
+  public officerType = localStorage.getItem('officertype');
   public residentlist : MatTableDataSource<Resident>;
   public displayedColumn : string[] = 
     ['residentid', 'name', 'gender','icno' , 'address', 'contact','unitcode', 'username','action']

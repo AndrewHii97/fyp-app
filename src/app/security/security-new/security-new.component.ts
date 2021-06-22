@@ -2,6 +2,8 @@ import { SecurityService } from '../../services/security.service';
 import { Component, OnInit, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog'
 import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms'
+import { TestService } from 'src/app/shared/test.service';
+
 @Component({
   selector: 'app-security-new',
   templateUrl: './security-new.component.html',
@@ -16,14 +18,15 @@ export class SecurityNewComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private dialogRef: MatDialogRef<SecurityNewComponent>,
-    private securityService : SecurityService
+    private securityService : SecurityService,
+    private testService : TestService
     ) { }
 
   public securityForm : FormGroup  = this.fb.group({
     securityname : [''],
     gender : [''],
     contact : [''],
-    username : [''],
+    username : ['',{asyncValidators: [this.testService.securityUsernameValidation()], updateOn: 'blur'}],
     password: [''],
     officertype: ['']
   });

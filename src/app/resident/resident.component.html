@@ -93,7 +93,7 @@
             showFirstLastButtons></mat-paginator>
         </div>
     </mat-tab>
-    <mat-tab label="Pending">
+    <mat-tab *ngIf="officerType=='admin'" label="Pending">
        <app-pending-resident></app-pending-resident> 
     </mat-tab>
 </mat-tab-group>

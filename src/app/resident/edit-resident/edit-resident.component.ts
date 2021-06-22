@@ -6,6 +6,7 @@ import { KeyService } from '../../services/key.service';
 import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms'
 import { House } from '../../interfaces/house';
 import { Key } from '../../interfaces/key';
+import { TestService } from 'src/app/shared/test.service';
 
 @Component({
   selector: 'app-edit-resident',
@@ -24,14 +25,15 @@ export class EditResidentComponent implements OnInit {
     private houseService : HousingUnitService,
     private keyService : KeyService,
     private fb : FormBuilder,
-    @Inject(MAT_DIALOG_DATA) private resident
+    @Inject(MAT_DIALOG_DATA) private resident,
+    private testService: TestService
 
   ) { }
 
   public residentForm : FormGroup  = this.fb.group({
     name : [''],
     gender : [''],
-    icno : [''],
+    icno : [{value: '', disabled: true}],
     address : [''],
     contact : [''],
     unitcode : [''],

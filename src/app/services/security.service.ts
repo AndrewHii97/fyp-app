@@ -11,6 +11,12 @@ export class SecurityService {
 
   constructor(private httpClient: HttpClient) { }
 
+  public checkSecurityUsername(username: string):Observable<any> { 
+    let url = `${ADDRESS}/security/username/check`;
+    let payload = new HttpParams().set('username',username);
+    return this.httpClient.post<any>(url, payload);
+  }
+
   public getSecurityList(): Observable<any> { 
     let url = `${ADDRESS}/security`;
     return this.httpClient.get<any>(url);

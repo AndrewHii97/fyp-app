@@ -14,7 +14,7 @@
                     <mat-label>Gender</mat-label>
                     <mat-select formControlName="gender" required>
                         <mat-option value="male">Male</mat-option>
-                        <mat-option value="gender">Female</mat-option>
+                        <mat-option value="female">Female</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="spacing">
@@ -31,6 +31,7 @@
                 <mat-form-field class="spacing">
                     <mat-label>Username</mat-label>
                     <input formControlName="username" matInput type="text" placeholder="Username" required>
+                    <mat-error *ngIf='securityForm.controls.username?.errors.duplicateUsername'>Username already exists</mat-error>
                 </mat-form-field>
                 <mat-form-field class="spacing">
                     <mat-label>Password</mat-label>

@@ -34,6 +34,7 @@ export class AuthService {
           localStorage.setItem('id', data.id);
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('token',login.username);
+          localStorage.setItem('officertype',data.officertype);
         }else{
           this.loggedIn = false;
           console.log("error password or username");
@@ -44,6 +45,7 @@ export class AuthService {
 
   public logout() :void { 
     localStorage.removeItem('id');
+    localStorage.removeItem('officertype')
     localStorage.setItem('isLoggedIn','false');
     localStorage.removeItem('token');
   }

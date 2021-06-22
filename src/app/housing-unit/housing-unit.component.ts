@@ -16,6 +16,7 @@ import { DeleteHouseComponent } from './delete-house/delete-house.component';
 })
 export class HousingUnitComponent implements OnInit {
 
+  public officerType = localStorage.getItem('officertype');
   public houses : MatTableDataSource<any>;
   // change this arraw to change order of table 
   public displayedColumn : string[] = ['livingunitid','ownername','unitcode','action'];
@@ -32,6 +33,11 @@ export class HousingUnitComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHouses();
+    if (this.officerType == 'admin'){ 
+      this.displayedColumn = ['livingunitid','ownername','unitcode','action'];
+    }else{
+      this.displayedColumn = ['livingunitid','ownername','unitcode'];
+    }
    
   }
 

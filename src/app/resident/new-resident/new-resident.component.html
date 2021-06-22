@@ -20,6 +20,7 @@
                 <mat-form-field class="spacing">
                     <mat-label>Icno</mat-label>
                     <input formControlName="icno" matInput type="text" placeholder="IcNo" required>
+                    <mat-error *ngIf="residentForm.controls.icno.errors?.duplicateIcno">IcNo already exists</mat-error>
                 </mat-form-field>
                 <mat-form-field class="spacing">
                     <mat-label>Address</mat-label>
@@ -32,6 +33,7 @@
                 <mat-form-field class="spacing">
                     <mat-label>Username</mat-label>
                     <input formControlName="username" matInput type="text" placeholder="Username" required>
+                    <mat-error *ngIf="residentForm.controls.username.errors?.duplicateUser">Username already exists</mat-error>
                 </mat-form-field>
                 <mat-form-field class="spacing">
                     <mat-label>Password</mat-label>

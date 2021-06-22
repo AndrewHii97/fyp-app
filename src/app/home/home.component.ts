@@ -13,7 +13,9 @@ import { MessagingService } from '../services/messaging.service';
 
 export class HomeComponent implements OnInit {
 
+  public officerType = localStorage.getItem('officertype');
   public id : number;
+  public name : string;
   public imageUrl : string;
   public isMenuOpen :boolean = false;
   public contentMargin :number = 240;
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
       console.log("seomthing get called ")
     })
     this.id = parseInt(localStorage.getItem('id'));
+    this.name = localStorage.getItem('token');
     this.profileService.getProfile(this.id).subscribe(
       (res)=>{
           this.imageUrl = this.profileService.userProfile.photourl;
