@@ -9,6 +9,7 @@ import { Security } from '../interfaces/security';
 import { HostListener } from '@angular/core';
 
 
+
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
@@ -16,10 +17,10 @@ import { HostListener } from '@angular/core';
 })
 export class AlertComponent implements OnInit {
   public alertlist : MatTableDataSource<Alert>;
-  public displayedColumn : string[] = ['issueid','issuedate','issuetime','description','action']
+  public displayedColumn : string[] = ['alertid','alertdate','alerttime','description','action']
   public searchKey : string; 
   public categorySelected : string = "";
-  public selectedAlert;
+  public selectedAlert: Alert;
   public message;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -63,6 +64,20 @@ export class AlertComponent implements OnInit {
         this.alertlist = new MatTableDataSource(alerts);
         this.alertlist.sort = this.sort;
         this.alertlist.paginator = this.paginator;
+        this.alertlist.filterPredicate = (data, filter)=>{
+          let match;
+          if (this.categorySelected){ 
+            return data[this.categorySelected].toString().toLowerCase().includes(filter);
+          }else{ 
+            return this.displayedColumn.some(ele => {
+              if (typeof data[ele] === 'number'){
+                return match = data[ele] === parseInt(filter);
+              }else if ( typeof data[ele] === 'string'){
+                return match = data[ele].toLowerCase().includes(filter);
+              }
+            })
+          }
+        }
       }
     )
   }

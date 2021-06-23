@@ -26,3 +26,8 @@ self.addEventListener('notificationclick',function(event){
     event.notification.close();
     event.waitUntil(self.clients.openWindow(event.webpush.fcmOptions.link));
 })
+
+self.addEventListener('push', event =>{
+    const notification = event.data.json();
+    self.ServiceWorkerRegistration.showNotification(notification.title, notification)
+})

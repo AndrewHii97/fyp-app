@@ -1,9 +1,10 @@
+<h2 mat-dialog-title>Edit Resident Information</h2>
 <form [formGroup]="residentForm" (ngSubmit)="submitEditResident()">
-    <mat-form-field class="form-component spacing">
+    <mat-form-field class="spacing">
         <mat-label>Name</mat-label>
         <input formControlName="name" matInput type="text" placeholder="Name" required>
     </mat-form-field>
-    <mat-form-field class="form-component spacing">
+    <mat-form-field class="spacing">
         <mat-label>Gender</mat-label>
         <mat-select formControlName="gender" required>
             <mat-option value="male">Male</mat-option>
@@ -22,20 +23,20 @@
         <mat-label>Contact</mat-label>
         <input formControlName="contact" matInput type="text" placeholder="Contact" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="spacing">
         <mat-label>Living Unit</mat-label>
         <mat-select (selectionChange)="getHouseKey()" class="spacing" formControlName="unitcode" required>
             <mat-option value="">------</mat-option>
             <mat-option *ngFor="let house of houses" [value]="house">{{house.unitcode}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="spacing">
         <mat-label>Key</mat-label>
         <mat-select [compareWith]="CompareFn" class="spacing" formControlName=key>
             <mat-option value="">------</mat-option>
             <mat-option *ngFor="let item of keys" [value]="item">{{item.keyvalue}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <button class="spacing" mat-raised-button type="submit" [disabled]="!residentForm.valid" >Confirm</button>
-    <button class="spacing" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button type="submit" [disabled]="!residentForm.valid" >Confirm</button>
+    <button class="left-right-margin" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
 </form>

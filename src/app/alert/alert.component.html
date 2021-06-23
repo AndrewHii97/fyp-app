@@ -15,26 +15,26 @@
 			    <mat-select [(ngModel)]="categorySelected"
 			    (openedChange)="changeCategory()">
 				<mat-option>None</mat-option>
-				<mat-option value="keyid">Id</mat-option>
-				<mat-option value="keyvalue">KeyValue</mat-option>
-				<mat-option value="unitcode">UnitCode</mat-option>
+				<mat-option value="alertid">Id</mat-option>
+				<mat-option value="alertdate">AlertDate</mat-option>
+				<mat-option value="alerttime">AlertTime</mat-option>
 			    </mat-select>
 			</mat-form-field>
 		    </div>
 		<div class="mat-elevation-z8 left-right-margin">
 			<mat-table [dataSource]="alertlist" matSort matSortActive="keyid"
 			matSortDirection="asc"> 
-			    <ng-container matColumnDef="issueid">
+			    <ng-container matColumnDef="alertid">
 				<!-- columndef have to be insde the displayd column -->
 				<mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
 				<mat-cell *matCellDef="let element">{{element.alertid}}</mat-cell>
 			    </ng-container>
-			    <ng-container matColumnDef="issuedate">
+			    <ng-container matColumnDef="alertdate">
 				<mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
 				<mat-cell *matCellDef="let element">{{element.alertdate}}</mat-cell>
 			    </ng-container>
-			    <ng-container matColumnDef="issuetime"> 
-				 <mat-header-cell *matHeaderCellDef mat-sort-header>issuetime</mat-header-cell>
+			    <ng-container matColumnDef="alerttime"> 
+				 <mat-header-cell *matHeaderCellDef mat-sort-header>Time</mat-header-cell>
 				<mat-cell *matCellDef="let element">{{element.alerttime}}</mat-cell>
 			    </ng-container>
 			    <ng-container matColumnDef="description"> 

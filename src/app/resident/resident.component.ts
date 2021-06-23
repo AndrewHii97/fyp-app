@@ -127,7 +127,7 @@ export class ResidentComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
-    dialogConfig.width = "60%";
+    dialogConfig.width = "40%";
     dialogConfig.data = {...resident};
     let dialogRef : MatDialogRef<EditImageComponent> = 
       this.createDialog.open(EditImageComponent,dialogConfig);
