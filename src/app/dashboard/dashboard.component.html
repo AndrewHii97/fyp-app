@@ -2,60 +2,56 @@
     <div class="card-container">
         <mat-card class="info-card">
             <mat-card-content>
-                <h1>RESIDENTS</h1>
-                <p>23</p>
+                <h1>PENDING RESIDENTS</h1>
+                <p>{{noOfResidentUnapproved}}</p>
             </mat-card-content>
         </mat-card>
         <mat-card class="info-card">
             <mat-card-content>
-                <h1>KEYS</h1>
-                <p>25</p>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="info-card">
-            <mat-card-content>
-                <h1>HOUSES</h1>
-                <p>27</p>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="info-card">
-            <mat-card-content>
-                <h1>UNAPPROVED</h1>
-                <p>10</p>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="info-card">
-            <mat-card-content>
-                <h1>ALERTS</h1>
-                <p>25</p>
+                <h1>UNREVIEWED ALERT</h1>
+                <p>{{noOfAlertUnreviewed}}</p>
             </mat-card-content> 
         </mat-card>
     </div>
     <!-- Include latest visit and latest alert here -->
     <div class="expand-tray">
         <div class="card-tray">
-            <mat-card class="my-card">
+            <mat-card *ngIf="!alertUrl">
+                <mat-card-content>
+                    <h2>NO ALERT FOUND</h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card *ngIf="alertUrl" class="my-card">
                 <div class="left-card">
                     <mat-card-title class="title">Latest Alert</mat-card-title>
-                    <img class="card-image" src="../../assets/andrew.jpg">
+                    <img class="card-image" [src]="alertUrl">
                 </div>
                 <div class="right-card">
-                    <mat-card-content>Date Time and Description</mat-card-content>
-                    <mat-card-actions>
-                        <button class="detailBtn" mat-button>Detail</button>
-                    </mat-card-actions>
+                    <mat-card-content>
+                        <h3>ALERTID : {{latestAlert?.alertid}}</h3>
+                        <h3>DATE:{{latestAlert?.alertdate}}</h3>
+                        <h3>TIME:{{latestAlert?.alerttime}}</h3>
+                        <h3>{{latestAlert?.description}}</h3>
+                    </mat-card-content>
                 </div>
             </mat-card>
-            <mat-card class="my-card">
+            <mat-card *ngIf="!entryUrl">
+                <mat-card-content>
+                    <h2>NO ENTRY FOUND</h2>
+                </mat-card-content>
+            </mat-card>
+            <mat-card *ngIf="entryUrl" class="my-card">
                 <div class="left-card">
                     <mat-card-title class="title">Latest Entry</mat-card-title>
-                    <img class="card-image" src="../../assets/andrew.jpg">
+                    <img class="card-image" [src]="entryUrl">
                 </div>
                 <div class="right-card">
-                    <mat-card-content>Date Time and Description</mat-card-content>
-                    <mat-card-actions>
-                        <button class="detailBtn" mat-button>Detail</button>
-                    </mat-card-actions>
+                    <mat-card-content>
+                        <h3>ID  :{{latestEntry?.entryid}}</h3>
+                        <h3>Resident: {{latestEntry?.name}}</h3>
+                        <h3>DATE:{{latestEntry?.entrydate}}</h3>
+                        <h3>TIME:{{latestEntry?.entrytime}}</h3>
+                    </mat-card-content>
                 </div>
             </mat-card>
         </div>

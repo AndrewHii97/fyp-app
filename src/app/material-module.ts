@@ -19,6 +19,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRippleModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
     imports:[
@@ -41,7 +42,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
         MatSortModule,
         MatTabsModule,
         MatRippleModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatStepperModule
     ],
     exports:[ 
         MatToolbarModule,
@@ -63,7 +65,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
         MatSortModule,
         MatTabsModule,
         MatRippleModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatStepperModule
     ]
     
 }) 

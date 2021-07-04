@@ -1,0 +1,82 @@
+<mat-progress-spinner *ngIf="loadingStatus"></mat-progress-spinner>
+<h1 mat-dialog-title>New Resident</h1>
+<div *ngIf="!loadingStatus" mat-dialog-content>
+    <mat-horizontal-stepper [linear]="true" >
+        <mat-step [stepControl]="residentForm" errorMessage="Form not Completed">
+            <form [formGroup]="residentForm"
+            (ngSubmit)="submitNewResident()">
+                <ng-template matStepLabel>Fill In Resident Detail</ng-template>
+                <mat-form-field class="spacing">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="name" matInput type="text" placeholder="Name" required>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender" required>
+                        <mat-option value="male">Male</mat-option>
+                        <mat-option value="female">Female</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Icno</mat-label>
+                    <input formControlName="icno" matInput type="text" placeholder="IcNo" required>
+                    <mat-error *ngIf="residentForm.controls.icno.errors?.duplicateIcno">IcNo already exists</mat-error>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Address</mat-label>
+                    <input formControlName="address" matInput type="text" placeholder="Address" required>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Contact</mat-label>
+                    <input formControlName="contact" matInput type="text" placeholder="Contact" required>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Username</mat-label>
+                    <input formControlName="username" matInput type="text" placeholder="Username" required>
+                    <mat-error *ngIf="residentForm.controls.username.errors?.duplicateUser">Username already exists</mat-error>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Password</mat-label>
+                    <input formControlName="password" matInput type="password" placeholder="Password" required>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Living Unit</mat-label>
+                    <mat-select  (selectionChange)="getHouseKey()" class="spacing"
+                    formControlName="unitcode" required >
+                        <mat-option value="">------</mat-option>
+                        <mat-option *ngFor="let house of houses" [value]="house">{{house.unitcode}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="spacing">
+                    <mat-label>Key</mat-label>
+                    <mat-select class="spacing" formControlName=key >
+                        <mat-option value="">------</mat-option>
+                        <mat-option *ngFor="let key of keys" [value]="key">{{key.keyvalue}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-raised-button matStepperNext type="button">Next</button>
+                <button class="button-space" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+            </form>
+        </mat-step>
+        <mat-step [completed]="validPhoto" errorMessage="Valid Photo is required">
+            <h3 style="color:red" *ngIf="message && !validPhoto">{{message}}</h3>
+            <h3 *ngIf="validPhoto">Valid Photo</h3>
+            <h3 *ngIf="loading">Validating Photos</h3>
+            <form [formGroup]="imageForm">
+                <ng-template matStepLabel>Upload Face Image for Recognition</ng-template>
+                <img *ngIf="imageUrl && imageUrl !== '' " width="300px" height="auto" [src]="imageUrl">
+                <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none">
+                <button class="right-margin" (click)="fileInput.click()" type="button" mat-raised-button>Choose Profile Pictures</button>
+                <button class="right-margin" [disabled]="!validPhoto"  mat-raised-button matStepperNext type="button">Next</button>
+                <button class="right-margin" mat-raised-button matStepperPrevious type="button">Previous</button>
+                <button class="right-margin" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <h2>Press Submit to complete resident registration</h2>
+            <button class="button" mat-raised-button type="button" (click)="submitNewResident()">Submit</button>
+            <button class="button button-space" mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

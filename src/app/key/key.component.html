@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8 left-right-margin">
-    <button mat-raised-button class="spacing" (click)="onCreate()">
+    <button mat-raised-button class="spacing" *ngIf="officerType=='admin'" (click)="onCreate()">
         <mat-icon>add</mat-icon>
         <mat-label>Create</mat-label>
     </button>
@@ -38,7 +38,7 @@
              <mat-header-cell *matHeaderCellDef mat-sort-header>UnitCode</mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.unitcode}}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="action">
+        <ng-container *ngIf="officerType == 'admin' " matColumnDef="action">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <mat-button class="pointer" mat-icon-button (click)="editKey(element)"><mat-icon>launch</mat-icon></mat-button>

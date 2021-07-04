@@ -24,7 +24,7 @@ export class LoginFormComponent implements OnInit {
 
   public checkLoggedIn(): void{ 
     if(localStorage.getItem("isLoggedIn") === "true"){ 
-      this.router.navigate(["/home"]);
+      this.router.navigate(["/home/dashboard"]);
     }
   }
 

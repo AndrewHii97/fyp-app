@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../services/profile.service';
 import { Router } from '@angular/router';
+import { MessagingService } from '../services/messaging.service';
 
 
 @Component({
@@ -12,17 +13,29 @@ import { Router } from '@angular/router';
 
 export class HomeComponent implements OnInit {
 
+  public officerType = localStorage.getItem('officertype');
   public id : number;
+  public name : string;
   public imageUrl : string;
   public isMenuOpen :boolean = false;
   public contentMargin :number = 240;
 
   constructor(private authService: AuthService,
     private router : Router,
-    private profileService : ProfileService) { }
+    private profileService : ProfileService,
+    private messagingService : MessagingService) { }
 
   ngOnInit(): void {
+    this.messagingService.requestPermission();
+    // only accept notification if login succesfully
+    this.messagingService.receiveMessage();
+    // subscribe to the mesg
+    this.messagingService.currentMessage.subscribe((mesg)=>{
+      console.log(mesg)
+      console.log("seomthing get called ")
+    })
     this.id = parseInt(localStorage.getItem('id'));
+    this.name = localStorage.getItem('token');
     this.profileService.getProfile(this.id).subscribe(
       (res)=>{
           this.imageUrl = this.profileService.userProfile.photourl;
@@ -31,6 +44,7 @@ export class HomeComponent implements OnInit {
         this.imageUrl = "";
       }
     )
+    
   }
 
   onToolbarMenuToggle(){ 

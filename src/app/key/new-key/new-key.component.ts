@@ -13,6 +13,7 @@ import { House } from '../../interfaces/house';
 export class NewKeyComponent implements OnInit {
   public houses : House[] = [];
   public loadingStatus : boolean = false;
+  private selectedUnit : string;
 
   constructor(private dialogRef: MatDialogRef<NewKeyComponent>,
     private fb: FormBuilder,
@@ -47,5 +48,6 @@ export class NewKeyComponent implements OnInit {
   closeDialog(): void{ 
     this.dialogRef.close();
   }
+
 
 }

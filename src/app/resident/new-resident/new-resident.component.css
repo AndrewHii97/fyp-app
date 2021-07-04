@@ -1,0 +1,15 @@
+.spacing{
+	display:block;
+}
+
+.button{
+	display:inline-block;
+}
+
+.button-space{
+	margin: 0px 25px;
+}
+
+.right-margin{
+	margin-right:25px;
+}

@@ -1,0 +1,65 @@
+<mat-card class="mat-elevation-z8 left-right-margin">
+	<mat-card-title>Card Detail</mat-card-title>
+	<mat-progress-spinner *ngIf="loading" mode="indeterminate"></mat-progress-spinner>
+	<mat-card-content class="flexbox" *ngIf="!loading">
+		<h3 *ngIf="!oriImageUrl">Select in table to display detail</h3>
+		<div class="inline-block">
+			<img *ngIf="oriImageUrl" [src]="oriImageUrl" width="400px" height="auto">
+		</div>
+		<div *ngIf="oriImageUrl" class="inline-block spacing">
+			<mat-form-field appearance="outline">
+				<mat-label>AlertId</mat-label>
+				<input matInput readonly="true" type='text' [value]="selectedAlert?.alertid">
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>AlertDate</mat-label>
+				<input matInput readonly="true" type='text' [value]="selectedAlert?.alertdate">
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>AlertTime</mat-label>
+				<input matInput readonly="true" type='text' [value]="selectedAlert?.alerttime">
+			</mat-form-field>
+			<mat-form-field appearance="outline" class="block">
+				<mat-label>Description</mat-label>
+				<textarea matInput readonly="true" type='text' [value]="selectedAlert?.description"></textarea>
+			</mat-form-field>
+			<mat-form-field *ngIf="!showButton" appearance="outline" class="block">
+				<mat-label>Status</mat-label>
+				<input matInput readonly="true" type='text' [value]="selectedAlert?.falsealarm? 'FalseAlarm':'Alert'">
+			</mat-form-field>
+			<button *ngIf="showButton" mat-raised-button (click)="checkAlert(selectedAlert)" ><mat-icon>check</mat-icon>Checked</button>
+			<button *ngIf="showButton" mat-raised-button (click)="checkAsFalseAlert(selectedAlert)"><mat-icon>notifications_off</mat-icon>False Alert</button> 
+			<button *ngIf="showButton" mat-raised-button (click)="deleteAlert(selectedAlert)"><mat-icon>clear</mat-icon>Delete</button>
+		</div>
+	</mat-card-content>
+</mat-card>
+<mat-card class="mat-elevation-z8 left-right-margin" >
+	<mat-card-title>Face Identified</mat-card-title>
+	<h3 *ngIf="!oriImageUrl">Select in table to display detail</h3>
+	<h3 *ngIf="facesNotFound">No Faces Recognized</h3>
+	<mat-card-content class="flexbox" *ngIf="recognizedFace">
+		<div *ngFor="let face of recognizedFace">
+			<mat-card class="card-size">
+				<img mat-card-image width="200px" height="auto" [src]="face.imageurl">
+				<mat-card-content>
+					<mat-form-field appearance="outline">
+						<mat-label>Id</mat-label>
+						<input matInput readonly="true" type='text' [value]="face.id">
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>Name</mat-label>
+						<input matInput readonly="true" type='text' [value]="face.name">
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>PhotoKey</mat-label>
+						<textarea matInput readonly="true" type='text' [value]="face.photopath"></textarea>
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>FaceId</mat-label>
+						<textarea matInput readonly="true" type='text' [value]="face.faceid"></textarea>
+					</mat-form-field>
+				</mat-card-content>
+			</mat-card>
+		</div>
+	</mat-card-content>
+</mat-card>

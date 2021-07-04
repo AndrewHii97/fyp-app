@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { NewHouseComponent } from './new-house/new-house.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UpdateHouseComponent } from './update-house/update-house.component';
+import { DeleteHouseComponent } from './delete-house/delete-house.component';
 
 @Component({
   selector: 'app-housing-unit',
@@ -15,6 +16,7 @@ import { UpdateHouseComponent } from './update-house/update-house.component';
 })
 export class HousingUnitComponent implements OnInit {
 
+  public officerType = localStorage.getItem('officertype');
   public houses : MatTableDataSource<any>;
   // change this arraw to change order of table 
   public displayedColumn : string[] = ['livingunitid','ownername','unitcode','action'];
@@ -31,6 +33,11 @@ export class HousingUnitComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHouses();
+    if (this.officerType == 'admin'){ 
+      this.displayedColumn = ['livingunitid','ownername','unitcode','action'];
+    }else{
+      this.displayedColumn = ['livingunitid','ownername','unitcode'];
+    }
    
   }
 
@@ -115,7 +122,15 @@ export class HousingUnitComponent implements OnInit {
     this.housingUnitService.deleteHouse(house.livingunitid)
       .subscribe(
         (res)=>{
-          this.getHouses();
+          if( res.valid == false && res.message == 'owned'){
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.disableClose = true;
+            dialogConfig.autoFocus = false;
+            dialogConfig.width = "60%";
+            let dialogRef = this.createDialog.open(DeleteHouseComponent,dialogConfig);
+          }else{
+            this.getHouses();
+          }
         }
       );
 

@@ -135,6 +135,7 @@ export class ProfileComponent implements OnInit {
       'username': this.profileForm.controls.username.value
     }).subscribe(
       res=> {
+        this.getProfile(this.userId);
         this._snackBar.open("Profile Updated","Dismiss")
         this.userProfile.name = this.profileForm.controls.name.value;
         this.userProfile.age = this.profileForm.controls.age.value;
@@ -159,13 +160,14 @@ export class ProfileComponent implements OnInit {
 
   // revert form to original value despite changes made
   public revertForm(){ 
-    this.profileForm.patchValue({
-      'name': this.userProfile.name,
-      'age': this.userProfile.age,
-      'gender': this.userProfile.gender,
-      'contact': this.userProfile.contact,
-      'username': this.userProfile.username
-    })
+    this.getProfile(this.userId);
+    // this.profileForm.patchValue({
+      // 'name': this.userProfile.name,
+      // 'age': this.userProfile.age,
+      // 'gender': this.userProfile.gender,
+      // 'contact': this.userProfile.contact,
+      // 'username': this.userProfile.username
+    // })
   }
 
   public onFileSelected(){ 
@@ -218,11 +220,8 @@ export class UploadFileDialog{
     
     let mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null){
-      this.message = "Only Image are supported.";
       return;
     }
-
-
     let reader = new FileReader();
     this.imagePath = files;
     this.selectedFile = files[0];

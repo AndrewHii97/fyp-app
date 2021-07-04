@@ -6,13 +6,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material-module';
 import { NewHouseComponent } from './new-house/new-house.component';
 import { UpdateHouseComponent } from './update-house/update-house.component';
+import { DeleteHouseComponent } from './delete-house/delete-house.component';
 
 
 @NgModule({
   declarations: [
     HousingUnitComponent,
     NewHouseComponent,
-    UpdateHouseComponent
+    UpdateHouseComponent,
+    DeleteHouseComponent
   ],
   imports: [
     FormsModule,

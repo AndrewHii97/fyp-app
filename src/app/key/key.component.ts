@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { NewKeyComponent } from './new-key/new-key.component';
 import { EditKeyComponent } from './edit-key/edit-key.component';
+import { DeleteKeyAlertComponent } from './delete-key-alert/delete-key-alert.component';
 
 @Component({
   selector: 'app-key',
@@ -15,6 +16,7 @@ import { EditKeyComponent } from './edit-key/edit-key.component';
 })
 export class KeyComponent implements OnInit {
   
+  public officerType = localStorage.getItem('officertype');
   public keylist : MatTableDataSource<Key>;
   public displayedColumn : string[] = ['keyid','keyvalue','unitcode','action']
   public searchKey : string; 
@@ -30,6 +32,11 @@ export class KeyComponent implements OnInit {
 
   ngOnInit(): void {
     this.getKeys();
+    if (this.officerType == 'admin') {
+     this.displayedColumn = ['keyid','keyvalue','unitcode','action']
+    }else{
+     this.displayedColumn = ['keyid','keyvalue','unitcode']
+    }
   }
 
   onSelect(key): void { 
@@ -43,6 +50,20 @@ export class KeyComponent implements OnInit {
         this.keylist = new MatTableDataSource(keys);
         this.keylist.sort = this.sort;
         this.keylist.paginator = this.paginator;
+        this.keylist.filterPredicate = (data, filter)=>{
+          let match;
+          if (this.categorySelected){ 
+            return data[this.categorySelected].toString().toLowerCase().includes(filter);
+          }else{ 
+            return this.displayedColumn.some(ele => {
+              if (typeof data[ele] === 'number'){
+                return match = data[ele] === parseInt(filter);
+              }else if ( typeof data[ele] === 'string'){
+                return match = data[ele].toLowerCase().includes(filter);
+              }
+            })
+          }
+        }
       }
     )
   }
@@ -80,7 +101,16 @@ export class KeyComponent implements OnInit {
   deleteKey(key):void { 
     this.keyService.deleteKey(key.keyid).subscribe(
       (res)=>{
-        if(res.valid){
+        console.log(res)
+        // some body own the key 
+        if (res.valid == false && res.message == 'keyowned'){
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = false;
+          dialogConfig.width = '60%';
+          let dialogRef : MatDialogRef<DeleteKeyAlertComponent> = 
+            this.createDialog.open(DeleteKeyAlertComponent,dialogConfig);
+        }else{
           this.getKeys();
         }
       }

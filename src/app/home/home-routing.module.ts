@@ -9,8 +9,13 @@ const routes: Routes = [
     { path: 'alert', loadChildren: () => import('../alert/alert.module').then(m => m.AlertModule) },
     { path: 'resident', loadChildren: () => import('../resident/resident.module').then(m => m.ResidentModule) },
     { path: 'house', loadChildren: ()=> import('../housing-unit/housing-unit.module').then( m =>m.HousingUnitModule)},
-    { path: 'key', loadChildren: () => import('../key/key.module').then(m => m.KeyModule) }
+    { path: 'key', loadChildren: () => import('../key/key.module').then(m => m.KeyModule) },
+    { path: 'entry', loadChildren: () => import('../entry/entry.module').then(m => m.EntryModule) },
+    { path: 'security', loadChildren: () => import('../security/security.module').then(m => m.SecurityModule) },
   ]},
+  {
+    path:'', redirectTo:'dashboard',pathMatch: 'full'
+  }
   ];
 
 @NgModule({
