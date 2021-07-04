@@ -112,7 +112,7 @@ export class AlertComponent implements OnInit {
   }
 
   tabSelectionChange(event){
-    if(event.tab.textLabel = "Reviewed"){
+    if(event.tab.textLabel == "Reviewed"){
       this.getAlerts()
     }
   }

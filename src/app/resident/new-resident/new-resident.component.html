@@ -59,7 +59,7 @@
             </form>
         </mat-step>
         <mat-step [completed]="validPhoto" errorMessage="Valid Photo is required">
-            <h3 style="color:red" *ngIf="message">{{message}}</h3>
+            <h3 style="color:red" *ngIf="message && !validPhoto">{{message}}</h3>
             <h3 *ngIf="validPhoto">Valid Photo</h3>
             <h3 *ngIf="loading">Validating Photos</h3>
             <form [formGroup]="imageForm">
