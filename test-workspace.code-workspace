@@ -5,9 +5,6 @@
 		},
 		{
 			"path": "..\\FypExpressServer"
-		},
-		{
-			"path": "..\\..\\.aws"
 		}
 	],
 	"settings": {
